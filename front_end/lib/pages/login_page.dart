@@ -1,5 +1,10 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:front_end/main.dart';
+// import 'package:shared_preferences/shared_preferences.dart';
+import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -47,8 +52,10 @@ class _LoginPageState extends State<LoginPage> {
                 SizedBox(height: 10),
                 RaisedButton(
                   onPressed: () {
-                    Navigator.of(context).push(
-                        MaterialPageRoute(builder: (context) => HomePage()));
+                    login();
+
+                    // Navigator.of(context)
+                    //     .pushReplacementNamed('/homeArtista');
                   },
                   child: Text('Entrar'),
                 )
@@ -58,5 +65,36 @@ class _LoginPageState extends State<LoginPage> {
         ),
       ),
     );
+  }
+
+  // Future<bool> verficaToken() async {
+  //   SharedPreferences sharedPreference = await SharedPreferences.getInstance();
+  //   if (sharedPreference.getString('acess_token') != null) {
+  //     return true;
+  //   } else {
+  //     return false;
+  //   }
+  // }
+
+  Future<bool> login() async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    var url = Uri.parse("https://match-artist.herokuapp.com/api/login");
+
+    var response =
+        await http.post(url, body: {'email': email, "password": password});
+
+    if (response.statusCode == 200) {
+      if (jsonDecode(response.body)['role'] == 3) {
+        // Navigator.of(context).pushReplacementNamed('/homeEstabelecimento');
+        print(jsonDecode(response.body)['role']);
+      } else {
+        Navigator.of(context).pushReplacementNamed('/homeArtista');
+        print(jsonDecode(response.body)['role']);
+      }
+      return true;
+    } else {
+      print(jsonDecode(response.body));
+      return false;
+    }
   }
 }
