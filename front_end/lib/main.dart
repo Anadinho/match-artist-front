@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:front_end/pages/artista/artista_page.dart';
+import 'package:front_end/pages/estabelecimento/estabelecimento_page.dart';
 import 'package:front_end/pages/home/home_page.dart';
 import 'package:front_end/pages/login/login_page.dart';
 
@@ -22,7 +23,7 @@ class AppWidget extends StatelessWidget {
           routes: {
             '/login': (context) => LoginPage(),
             '/homePage': (context) => HomePage(),
-            // '/estabelecimento' :(context) => EstabelecimentoPage();  OBS: criar
+            '/estabelecimento': (context) => EstabelecimentoPage(),
             '/artista': (context) => ArtistaPage()
           },
         );

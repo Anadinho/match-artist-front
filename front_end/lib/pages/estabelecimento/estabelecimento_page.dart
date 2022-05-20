@@ -1,30 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:front_end/main.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class HomePage extends StatefulWidget {
+class EstabelecimentoPage extends StatefulWidget {
   @override
-  State<HomePage> createState() {
-    return HomePageState();
+  State<EstabelecimentoPage> createState() {
+    return EstabelecimentoPageState();
   }
 }
 
-class HomePageState extends State<HomePage> {
+class EstabelecimentoPageState extends State<EstabelecimentoPage> {
   @override
   void initState() {
     super.initState();
-    verficaToken().then((value) async {
-      SharedPreferences sharedPreferences =
-          await SharedPreferences.getInstance();
+    verficaToken().then((value) {
       if (value) {
-        if (sharedPreferences.getString('role') == "2") {
-          // print("artista");
-          Navigator.of(context).pushReplacementNamed('/artista');
-        } else {
-          Navigator.of(context).pushReplacementNamed('/estabelecimento');
-        }
+        print("token ok!");
       } else {
         Navigator.of(context).pushReplacementNamed('/login');
+        print("Falha no token !!");
       }
     });
   }
@@ -33,16 +26,12 @@ class HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text('Home'),
+          title: Text('EstabelecimentoPage'),
         ),
         body: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Text(
-              "Home",
-              textAlign: TextAlign.center,
-            ),
             TextButton(
               onPressed: () async {
                 bool is_sair = await sair();
@@ -56,6 +45,12 @@ class HomePageState extends State<HomePage> {
         ));
   }
 
+  Future<bool> sair() async {
+    SharedPreferences sharedPreference = await SharedPreferences.getInstance();
+    await sharedPreference.clear();
+    return true;
+  }
+
   //isolar função em um validation
   Future<bool> verficaToken() async {
     SharedPreferences sharedPreference = await SharedPreferences.getInstance();
@@ -64,11 +59,5 @@ class HomePageState extends State<HomePage> {
     } else {
       return false;
     }
-  }
-
-  Future<bool> sair() async {
-    SharedPreferences sharedPreference = await SharedPreferences.getInstance();
-    await sharedPreference.clear();
-    return true;
   }
 }

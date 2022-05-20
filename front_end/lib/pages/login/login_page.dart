@@ -13,81 +13,143 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  final _formkey = GlobalKey<FormState>();
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
+
   String email = '';
   String password = '';
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
-        child: SizedBox(
-          width: MediaQuery.of(context).size.width,
-          height: MediaQuery.of(context).size.height,
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
+      body: Form(
+        key: _formkey,
+        child: Center(
+          child: SingleChildScrollView(
+            padding: EdgeInsets.symmetric(horizontal: 16),
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                TextField(
-                  onChanged: (text) {
-                    email = text;
-                  },
-                  decoration: InputDecoration(
-                    labelText: 'Email',
-                    border: OutlineInputBorder(),
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  TextFormField(
+                    decoration: InputDecoration(
+                      labelText: "e-mail",
+                    ),
+                    controller: _emailController,
+                    keyboardType: TextInputType.emailAddress,
+                    validator: (email) {
+                      if (email == null || email.isEmpty) {
+                        return 'Campo Obrigatorio!';
+                      } else if (!RegExp(
+                              r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                          .hasMatch(_emailController.text)) {
+                        return 'Campo invalido!';
+                      }
+                      return null;
+                    },
                   ),
-                ),
-                SizedBox(height: 10),
-                TextField(
-                  onChanged: (text) {
-                    password = text;
-                  },
-                  obscureText: true,
-                  decoration: InputDecoration(
-                    labelText: 'Password',
-                    border: OutlineInputBorder(),
-                  ),
-                ),
-                SizedBox(height: 10),
-                RaisedButton(
-                  onPressed: () {
-                    login();
+                  TextFormField(
+                      decoration: InputDecoration(
+                        labelText: "senha",
+                      ),
+                      controller: _passwordController,
+                      keyboardType: TextInputType.text,
+                      obscureText: true,
+                      validator: (senha) {
+                        if (senha == null || senha.isEmpty) {
+                          return 'Campo Obrigatorio!';
+                        } else if (senha.length < 6) {
+                          return "Por favor, digite uma senha maior que 6 caracteres";
+                        }
 
-                    // Navigator.of(context)
-                    //     .pushReplacementNamed('/homeArtista');
-                  },
-                  child: Text('Entrar'),
-                )
-              ],
-            ),
+                        return null;
+                      }),
+                  ElevatedButton(
+                    onPressed: () async {
+                      FocusScopeNode currentFocus = FocusScope.of(context);
+
+                      if (_formkey.currentState!.validate()) {
+                        bool is_login = await login();
+
+                        if (!currentFocus.hasPrimaryFocus) {
+                          currentFocus.unfocus();
+                        }
+
+                        if (is_login) {
+                          SharedPreferences sharedPreference =
+                              await SharedPreferences.getInstance();
+
+                          if (sharedPreference.getString('role') == "2") {
+                            Navigator.of(context)
+                                .pushReplacementNamed('/artista');
+                          } else {
+                            Navigator.of(context)
+                                .pushReplacementNamed('/estabelecimento');
+                          }
+                        } else {
+                          _passwordController.clear();
+                          ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                        }
+                      }
+                      login();
+                    },
+                    child: Text('Entrar'),
+                  ),
+                ]),
           ),
         ),
       ),
     );
   }
 
-  
+  final snackBar = SnackBar(
+      content: Text(
+        'e-mail ou senha invalidos!',
+        textAlign: TextAlign.center,
+      ),
+      backgroundColor: Colors.redAccent);
 
   Future<bool> login() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     var url = Uri.parse("https://match-artist.herokuapp.com/api/login");
 
-    var response =
-        await http.post(url, body: {'email': email, "password": password});
+    var response = await http.post(url, body: {
+      'email': _emailController.text,
+      "password": _passwordController.text
+    });
 
     if (response.statusCode == 200) {
-      if (jsonDecode(response.body)['role'] == 3) {
-        // Navigator.of(context).pushReplacementNamed('/homeEstabelecimento');
-        print(jsonDecode(response.body));
-        print("estabelecimento");
+      await sharedPreferences.setString(
+          'acess_token', "Bearer ${jsonDecode(response.body)["acess_token"]}");
+
+      if (jsonDecode(response.body)["role"] == 2) {
+        await sharedPreferences.setString(
+            'role', "${jsonDecode(response.body)["role"]}");
+
+        await sharedPreferences.setString(
+            'id_artista', "${jsonDecode(response.body)["id_artista"]}");
+
+        await sharedPreferences.setString(
+            'name', "${jsonDecode(response.body)["name"]}");
+
+        await sharedPreferences.setString(
+            'id_user', "${jsonDecode(response.body)["id_user"]}");
       } else {
-        // Navigator.of(context).pushReplacementNamed('/artista');
-        print(jsonDecode(response.body));
-        print("artista");
+        await sharedPreferences.setString(
+            'role', "${jsonDecode(response.body)["role"]}");
+
+        await sharedPreferences.setString('id_estabelecimento',
+            "${jsonDecode(response.body)["id_estabelecimento"]}");
+
+        await sharedPreferences.setString(
+            'name', "${jsonDecode(response.body)["name"]}");
+
+        await sharedPreferences.setString(
+            'id_user', "${jsonDecode(response.body)["id_user"]}");
       }
+      print(jsonDecode(response.body));
       return true;
     } else {
-      print(jsonDecode(response.body));
       return false;
     }
   }
