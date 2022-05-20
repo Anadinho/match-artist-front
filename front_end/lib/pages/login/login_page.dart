@@ -66,14 +66,7 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  // Future<bool> verficaToken() async {
-  //   SharedPreferences sharedPreference = await SharedPreferences.getInstance();
-  //   if (sharedPreference.getString('acess_token') != null) {
-  //     return true;
-  //   } else {
-  //     return false;
-  //   }
-  // }
+  
 
   Future<bool> login() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
@@ -85,10 +78,12 @@ class _LoginPageState extends State<LoginPage> {
     if (response.statusCode == 200) {
       if (jsonDecode(response.body)['role'] == 3) {
         // Navigator.of(context).pushReplacementNamed('/homeEstabelecimento');
-        print(jsonDecode(response.body)['role']);
+        print(jsonDecode(response.body));
+        print("estabelecimento");
       } else {
-        Navigator.of(context).pushReplacementNamed('/homeArtista');
-        print(jsonDecode(response.body)['role']);
+        // Navigator.of(context).pushReplacementNamed('/artista');
+        print(jsonDecode(response.body));
+        print("artista");
       }
       return true;
     } else {

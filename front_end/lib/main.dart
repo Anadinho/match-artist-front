@@ -17,10 +17,12 @@ class AppWidget extends StatelessWidget {
       builder: (context, chuild) {
         return MaterialApp(
           theme: ThemeData.dark(),
-          initialRoute: '/',
+          initialRoute: '/homePage',
           routes: {
-            '/': (context) => LoginPage(),
-            '/homeArtista': (context) => HomePage()
+            '/login': (context) => LoginPage(),
+            '/homePage': (context) => HomePage(),
+            // '/estabelecimento' :(context) => EstabelecimentoPage();  OBS: criar
+            // '/artista' :(context) => ArtistaPage();  OBS: criar
           },
         );
       },

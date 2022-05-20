@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:front_end/main.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -9,7 +10,25 @@ class HomePage extends StatefulWidget {
 }
 
 class HomePageState extends State<HomePage> {
-  int counter = 0;
+  @override
+  void initState(){
+    super.initState();
+    verficaToken().then((value) {
+      if(value){
+        if (true) {
+          print("ESTABELECIMENTO");
+          // Navigator.of(context).pushReplacementNamed('/homeEstabelecimento');        
+        } else {
+          print("artista");
+          // Navigator.of(context).pushReplacementNamed('/homeArtista');
+        }
+      }else{
+        Navigator.of(context).pushReplacementNamed('/login');
+        print("Realizar Login");
+      }
+    });
+
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -18,20 +37,18 @@ class HomePageState extends State<HomePage> {
         title: Text('HomePage'),
       ),
       body: Center(
-        child: Switch(
-            value: AppController.instance.isDartTheme,
-            onChanged: (value) {
-              AppController.instance.changeTheme();
-            }),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          setState(() {
-            counter++;
-          });
-        },
-        child: Icon(Icons.add),
+        child:CircularProgressIndicator(),
       ),
     );
   }
+
+  Future<bool> verficaToken() async {
+    SharedPreferences sharedPreference = await SharedPreferences.getInstance();
+    if (sharedPreference.getString('acess_token') != null) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
 }
