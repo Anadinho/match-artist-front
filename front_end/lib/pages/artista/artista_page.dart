@@ -1,30 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:front_end/main.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class HomePage extends StatefulWidget {
+class ArtistaPage extends StatefulWidget {
   @override
-  State<HomePage> createState() {
-    return HomePageState();
+  State<ArtistaPage> createState() {
+    return ArtistaPageState();
   }
 }
 
-class HomePageState extends State<HomePage> {
+class ArtistaPageState extends State<ArtistaPage> {
   @override
   void initState() {
     super.initState();
     verficaToken().then((value) {
       if (value) {
-        if (true) {
-          print("ESTABELECIMENTO");
-          // Navigator.of(context).pushReplacementNamed('/homeEstabelecimento');
-        } else {
-          print("artista");
-          // Navigator.of(context).pushReplacementNamed('/homeArtista');
-        }
+        print("token ok!");
       } else {
         Navigator.of(context).pushReplacementNamed('/login');
-        print("Realizar Login");
+        print("Falha no token !!");
       }
     });
   }
@@ -33,7 +26,7 @@ class HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('HomePage'),
+        title: Text('ArtistaPage'),
       ),
       body: Center(
         child: CircularProgressIndicator(),
