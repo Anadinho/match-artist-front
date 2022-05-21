@@ -19,7 +19,7 @@ class AppWidget extends StatelessWidget {
       builder: (context, chuild) {
         return MaterialApp(
           theme: ThemeData.dark(),
-          initialRoute: '/homePage',
+          initialRoute: '/login',
           routes: {
             '/login': (context) => LoginPage(),
             '/homePage': (context) => HomePage(),

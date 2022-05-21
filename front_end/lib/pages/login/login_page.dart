@@ -5,6 +5,9 @@ import 'package:front_end/main.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../components/custom_colors.dart';
+import '../estabelecimento/estabelecimento_page.dart';
+
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
 
@@ -13,6 +16,7 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  bool isConect = false;
   final _formkey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
@@ -23,17 +27,57 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Form(
+      body: Container(
         key: _formkey,
-        child: Center(
-          child: SingleChildScrollView(
-            padding: EdgeInsets.symmetric(horizontal: 16),
-            child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  TextFormField(
+        width: MediaQuery.of(context).size.width,
+        height: MediaQuery.of(context).size.height,
+        padding: EdgeInsets.all(20),
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: CustomColors().getBackGround()),
+        ),
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 50),
+          child: Column(mainAxisSize: MainAxisSize.min, children: [
+            Image(
+              image: AssetImage('lib/assets/logo.png'),
+              width: 160,
+              color: Colors.blue[700],
+            ),
+            SizedBox(height: 25),
+            Text('Entrar',
+                style: TextStyle(
+                  fontSize: 26.0,
+                  color: Colors.white,
+                )),
+            SizedBox(height: 16),
+            Row(
+              children: [
+                Expanded(
+                  child: TextFormField(
+                    style: TextStyle(color: Colors.white),
                     decoration: InputDecoration(
-                      labelText: "e-mail",
+                      labelText: 'Email',
+                      labelStyle: TextStyle(color: Colors.white),
+                      prefixIcon: Icon(
+                        Icons.email,
+                        color: Colors.white,
+                      ),
+                      enabledBorder: UnderlineInputBorder(
+                        borderSide: const BorderSide(
+                          width: 3,
+                          color: Colors.white,
+                        ),
+                        borderRadius: BorderRadius.circular(5),
+                      ),
+                      focusedBorder: UnderlineInputBorder(
+                        borderSide: const BorderSide(
+                          width: 2,
+                          color: Colors.white,
+                        ),
+                      ),
                     ),
                     controller: _emailController,
                     keyboardType: TextInputType.emailAddress,
@@ -48,10 +92,36 @@ class _LoginPageState extends State<LoginPage> {
                       return null;
                     },
                   ),
-                  TextFormField(
+                )
+              ],
+            ),
+            SizedBox(height: 16),
+            Row(
+              children: [
+                Expanded(
+                  child: TextFormField(
                       decoration: InputDecoration(
-                        labelText: "senha",
+                        labelText: 'Senha',
+                        labelStyle: TextStyle(color: Colors.white),
+                        prefixIcon: Icon(
+                          Icons.vpn_key_sharp,
+                          color: Colors.white,
+                        ),
+                        enabledBorder: UnderlineInputBorder(
+                          borderSide: const BorderSide(
+                            width: 3,
+                            color: Colors.white,
+                          ),
+                          borderRadius: BorderRadius.circular(5),
+                        ),
+                        focusedBorder: UnderlineInputBorder(
+                          borderSide: const BorderSide(
+                            width: 2,
+                            color: Colors.white,
+                          ),
+                        ),
                       ),
+                      style: TextStyle(color: Colors.white),
                       controller: _passwordController,
                       keyboardType: TextInputType.text,
                       obscureText: true,
@@ -61,10 +131,32 @@ class _LoginPageState extends State<LoginPage> {
                         } else if (senha.length < 6) {
                           return "Por favor, digite uma senha maior que 6 caracteres";
                         }
-
                         return null;
                       }),
-                  ElevatedButton(
+                )
+              ],
+            ),
+            SizedBox(height: 16),
+            Row(
+              children: [
+                Checkbox(
+                  value: this.isConect,
+                  side: BorderSide(color: Colors.white, width: 2),
+                  onChanged: (bool? newValue) {
+                    setState(() {
+                      this.isConect = newValue!;
+                    });
+                  },
+                ),
+                Text('Continuar conectado?',
+                    style: TextStyle(color: Colors.white))
+              ],
+            ),
+            SizedBox(height: 16),
+            Row(
+              children: [
+                Expanded(
+                  child: ElevatedButton(
                     onPressed: () async {
                       FocusScopeNode currentFocus = FocusScope.of(context);
 
@@ -93,10 +185,41 @@ class _LoginPageState extends State<LoginPage> {
                       }
                       login();
                     },
-                    child: Text('Entrar'),
+                    child: Text('LOGIN'),
+                    style: ElevatedButton.styleFrom(
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(50)),
+                        primary: CustomColors().getActivePrimaryButton(),
+                        padding: EdgeInsets.all(14)),
                   ),
-                ]),
-          ),
+                ),
+              ],
+            ),
+            Divider(height: 50, color: Colors.white),
+            Text('Já tem conta?', style: TextStyle(color: Colors.white)),
+            SizedBox(height: 15),
+            Row(
+              children: [
+                Expanded(
+                  child: ElevatedButton(
+                    onPressed: () {
+                      showAlertDialog3(context);
+                    },
+                    child: Text(
+                      'CADASTRE-SE',
+                      style: TextStyle(
+                          color: CustomColors().getActivePrimaryButton()),
+                    ),
+                    style: ElevatedButton.styleFrom(
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(50)),
+                        primary: CustomColors().getActiveSecondButton(),
+                        padding: EdgeInsets.all(14)),
+                  ),
+                ),
+              ],
+            ),
+          ]),
         ),
       ),
     );
@@ -152,5 +275,68 @@ class _LoginPageState extends State<LoginPage> {
     } else {
       return false;
     }
+  }
+
+  showAlertDialog3(BuildContext context) {
+    Widget artistButton = ElevatedButton(
+      child: Text("Artista"),
+      style: ElevatedButton.styleFrom(
+        primary: CustomColors().getActivePrimaryButton(),
+      ),
+      onPressed: () {},
+    );
+    Widget companyButton = ElevatedButton(
+      child: Text("Empresa"),
+      style: ElevatedButton.styleFrom(
+        primary: CustomColors().getActivePrimaryButton(),
+      ),
+      onPressed: () {
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) => EstabelecimentoPage()));
+        return;
+      },
+    );
+    Widget cancelButton = TextButton(
+      child: Text("Cancelar"),
+      style: TextButton.styleFrom(
+        primary: Color(0xff6d0019),
+        padding: EdgeInsets.all(8),
+      ),
+      onPressed: () {
+        Navigator.of(context).pop();
+      },
+    );
+    // configura o  AlertDialog
+    AlertDialog alert = AlertDialog(
+      buttonPadding: EdgeInsets.symmetric(vertical: 2),
+      title: Text("Nova Conta"),
+      content: Text("Selecione seu perfil!"),
+      actions: [
+        Center(
+          child: Padding(
+            padding: const EdgeInsets.all(16),
+            child: Row(
+              children: [
+                Expanded(
+                  child: artistButton,
+                ),
+                SizedBox(width: 8),
+                Expanded(
+                  child: companyButton,
+                ),
+              ],
+            ),
+          ),
+        ),
+        cancelButton,
+      ],
+    );
+    // exibe o dialogo
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
   }
 }
