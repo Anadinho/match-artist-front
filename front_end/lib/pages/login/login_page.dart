@@ -28,7 +28,6 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        key: _formkey,
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
         padding: EdgeInsets.all(20),
@@ -38,73 +37,33 @@ class _LoginPageState extends State<LoginPage> {
               end: Alignment.bottomCenter,
               colors: CustomColors().getBackGround()),
         ),
-        child: SingleChildScrollView(
-          padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 50),
-          child: Column(mainAxisSize: MainAxisSize.min, children: [
-            Image(
-              image: AssetImage('lib/assets/logo.png'),
-              width: 160,
-              color: Colors.blue[700],
-            ),
-            SizedBox(height: 25),
-            Text('Entrar',
-                style: TextStyle(
-                  fontSize: 26.0,
-                  color: Colors.white,
-                )),
-            SizedBox(height: 16),
-            Row(
-              children: [
-                Expanded(
-                  child: TextFormField(
-                    style: TextStyle(color: Colors.white),
-                    decoration: InputDecoration(
-                      labelText: 'Email',
-                      labelStyle: TextStyle(color: Colors.white),
-                      prefixIcon: Icon(
-                        Icons.email,
-                        color: Colors.white,
-                      ),
-                      enabledBorder: UnderlineInputBorder(
-                        borderSide: const BorderSide(
-                          width: 3,
-                          color: Colors.white,
-                        ),
-                        borderRadius: BorderRadius.circular(5),
-                      ),
-                      focusedBorder: UnderlineInputBorder(
-                        borderSide: const BorderSide(
-                          width: 2,
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
-                    controller: _emailController,
-                    keyboardType: TextInputType.emailAddress,
-                    validator: (email) {
-                      if (email == null || email.isEmpty) {
-                        return 'Campo Obrigatorio!';
-                      } else if (!RegExp(
-                              r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-                          .hasMatch(_emailController.text)) {
-                        return 'Campo invalido!';
-                      }
-                      return null;
-                    },
-                  ),
-                )
-              ],
-            ),
-            SizedBox(height: 16),
-            Row(
-              children: [
-                Expanded(
-                  child: TextFormField(
+        child: Form(
+          key: _formkey,
+          child: SingleChildScrollView(
+            padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 50),
+            child: Column(mainAxisSize: MainAxisSize.min, children: [
+              Image(
+                image: AssetImage('lib/assets/logo.png'),
+                width: 160,
+                color: Colors.blue[700],
+              ),
+              SizedBox(height: 25),
+              Text('Entrar',
+                  style: TextStyle(
+                    fontSize: 26.0,
+                    color: Colors.white,
+                  )),
+              SizedBox(height: 16),
+              Row(
+                children: [
+                  Expanded(
+                    child: TextFormField(
+                      style: TextStyle(color: Colors.white),
                       decoration: InputDecoration(
-                        labelText: 'Senha',
+                        labelText: 'Email',
                         labelStyle: TextStyle(color: Colors.white),
                         prefixIcon: Icon(
-                          Icons.vpn_key_sharp,
+                          Icons.email,
                           color: Colors.white,
                         ),
                         enabledBorder: UnderlineInputBorder(
@@ -121,105 +80,149 @@ class _LoginPageState extends State<LoginPage> {
                           ),
                         ),
                       ),
-                      style: TextStyle(color: Colors.white),
-                      controller: _passwordController,
-                      keyboardType: TextInputType.text,
-                      obscureText: true,
-                      validator: (senha) {
-                        if (senha == null || senha.isEmpty) {
+                      controller: _emailController,
+                      keyboardType: TextInputType.emailAddress,
+                      validator: (email) {
+                        if (email == null || email.isEmpty) {
                           return 'Campo Obrigatorio!';
-                        } else if (senha.length < 6) {
-                          return "Por favor, digite uma senha maior que 6 caracteres";
+                        } else if (!RegExp(
+                                r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                            .hasMatch(_emailController.text)) {
+                          return 'Campo invalido!';
                         }
                         return null;
-                      }),
-                )
-              ],
-            ),
-            SizedBox(height: 16),
-            Row(
-              children: [
-                Checkbox(
-                  value: this.isConect,
-                  side: BorderSide(color: Colors.white, width: 2),
-                  onChanged: (bool? newValue) {
-                    setState(() {
-                      this.isConect = newValue!;
-                    });
-                  },
-                ),
-                Text('Continuar conectado?',
-                    style: TextStyle(color: Colors.white))
-              ],
-            ),
-            SizedBox(height: 16),
-            Row(
-              children: [
-                Expanded(
-                  child: ElevatedButton(
-                    onPressed: () async {
-                      FocusScopeNode currentFocus = FocusScope.of(context);
-
-                      if (_formkey.currentState!.validate()) {
-                        bool is_login = await login();
-
-                        if (!currentFocus.hasPrimaryFocus) {
-                          currentFocus.unfocus();
-                        }
-
-                        if (is_login) {
-                          SharedPreferences sharedPreference =
-                              await SharedPreferences.getInstance();
-
-                          if (sharedPreference.getString('role') == "2") {
-                            Navigator.of(context)
-                                .pushReplacementNamed('/artista');
-                          } else {
-                            Navigator.of(context)
-                                .pushReplacementNamed('/estabelecimento');
-                          }
-                        } else {
-                          _passwordController.clear();
-                          ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                        }
-                      }
-                      login();
-                    },
-                    child: Text('LOGIN'),
-                    style: ElevatedButton.styleFrom(
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(50)),
-                        primary: CustomColors().getActivePrimaryButton(),
-                        padding: EdgeInsets.all(14)),
-                  ),
-                ),
-              ],
-            ),
-            Divider(height: 50, color: Colors.white),
-            Text('Já tem conta?', style: TextStyle(color: Colors.white)),
-            SizedBox(height: 15),
-            Row(
-              children: [
-                Expanded(
-                  child: ElevatedButton(
-                    onPressed: () {
-                      showAlertDialog3(context);
-                    },
-                    child: Text(
-                      'CADASTRE-SE',
-                      style: TextStyle(
-                          color: CustomColors().getActivePrimaryButton()),
+                      },
                     ),
-                    style: ElevatedButton.styleFrom(
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(50)),
-                        primary: CustomColors().getActiveSecondButton(),
-                        padding: EdgeInsets.all(14)),
+                  )
+                ],
+              ),
+              SizedBox(height: 16),
+              Row(
+                children: [
+                  Expanded(
+                    child: TextFormField(
+                        decoration: InputDecoration(
+                          labelText: 'Senha',
+                          labelStyle: TextStyle(color: Colors.white),
+                          prefixIcon: Icon(
+                            Icons.vpn_key_sharp,
+                            color: Colors.white,
+                          ),
+                          enabledBorder: UnderlineInputBorder(
+                            borderSide: const BorderSide(
+                              width: 3,
+                              color: Colors.white,
+                            ),
+                            borderRadius: BorderRadius.circular(5),
+                          ),
+                          focusedBorder: UnderlineInputBorder(
+                            borderSide: const BorderSide(
+                              width: 2,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
+                        style: TextStyle(color: Colors.white),
+                        controller: _passwordController,
+                        keyboardType: TextInputType.text,
+                        obscureText: true,
+                        validator: (senha) {
+                          if (senha == null || senha.isEmpty) {
+                            return 'Campo Obrigatorio!';
+                          } else if (senha.length < 6) {
+                            return "Por favor, digite uma senha maior que 6 caracteres";
+                          }
+                          return null;
+                        }),
+                  )
+                ],
+              ),
+              SizedBox(height: 16),
+              Row(
+                children: [
+                  Checkbox(
+                    value: this.isConect,
+                    side: BorderSide(color: Colors.white, width: 2),
+                    onChanged: (bool? newValue) {
+                      setState(() {
+                        this.isConect = newValue!;
+                      });
+                    },
                   ),
-                ),
-              ],
-            ),
-          ]),
+                  Text('Continuar conectado?',
+                      style: TextStyle(color: Colors.white))
+                ],
+              ),
+              SizedBox(height: 16),
+              Row(
+                children: [
+                  Expanded(
+                    child: ElevatedButton(
+                      onPressed: () async {
+                        FocusScopeNode currentFocus = FocusScope.of(context);
+
+                        if (_formkey.currentState!.validate()) {
+                          bool is_login = await login();
+
+                          if (!currentFocus.hasPrimaryFocus) {
+                            currentFocus.unfocus();
+                          }
+
+                          if (is_login) {
+                            SharedPreferences sharedPreference =
+                                await SharedPreferences.getInstance();
+
+                            if (sharedPreference.getString('role') == "2") {
+                              Navigator.of(context)
+                                  .pushReplacementNamed('/artista');
+                            } else {
+                              Navigator.of(context)
+                                  .pushReplacementNamed('/estabelecimento');
+                            }
+                          } else {
+                            _passwordController.clear();
+                            ScaffoldMessenger.of(context)
+                                .showSnackBar(snackBar);
+                          }
+                        }
+                        login();
+                      },
+                      child: Text('LOGIN'),
+                      style: ElevatedButton.styleFrom(
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(50)),
+                          primary: CustomColors().getActivePrimaryButton(),
+                          padding: EdgeInsets.all(14)),
+                    ),
+                  ),
+                ],
+              ),
+              Divider(height: 50, color: Colors.white),
+              Text('Já tem conta?', style: TextStyle(color: Colors.white)),
+              SizedBox(height: 15),
+              Row(
+                children: [
+                  Expanded(
+                    child: ElevatedButton(
+                      onPressed: () {
+                        showAlertDialog3(context);
+                      },
+                      child: Text(
+                        'CADASTRE-SE',
+                        style: TextStyle(
+                            color: CustomColors().getActivePrimaryButton()),
+                      ),
+                      style: ElevatedButton.styleFrom(
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(50)),
+                          primary: CustomColors().getActiveSecondButton(),
+                          padding: EdgeInsets.all(14)),
+                    ),
+                  ),
+                ],
+              ),
+            ]),
+          ),
         ),
       ),
     );
