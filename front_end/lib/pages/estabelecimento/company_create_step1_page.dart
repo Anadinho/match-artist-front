@@ -237,10 +237,10 @@ class _CompanyCreateStepOne extends State<CompanyCreateStepOne> {
                   Expanded(
                     child: ElevatedButton(
                       onPressed: () {
-                        //  Navigator.push(
-                        //    context,
-                        //  MaterialPageRoute(
-                        //    builder: (context) => CompanyCreateStepTwo()));
+                        // Navigator.push(
+                        //   context,
+                        // MaterialPageRoute(
+                        //   builder: (context) => CompanyCreateStepTwo()));
                       },
                       child: Text('Próximo'),
                       style: ElevatedButton.styleFrom(
