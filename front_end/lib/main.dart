@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:front_end/pages/artista/artista_page.dart';
 import 'package:front_end/pages/estabelecimento/estabelecimento_page.dart';
 import 'package:front_end/pages/home/home_page.dart';
+import 'package:front_end/pages/home/home_page2.dart';
 import 'package:front_end/pages/login/login_page.dart';
 
 void main() {
@@ -18,9 +19,11 @@ class AppWidget extends StatelessWidget {
     return AnimatedBuilder(
       builder: (context, chuild) {
         return MaterialApp(
+          debugShowCheckedModeBanner: false,
           theme: ThemeData.dark(),
-          initialRoute: '/homePage',
+          initialRoute: '/teste',
           routes: {
+            '/teste': (context) => HomePageTwo(),
             '/login': (context) => LoginPage(),
             '/homePage': (context) => HomePage(),
             '/estabelecimento': (context) => EstabelecimentoPage(),
