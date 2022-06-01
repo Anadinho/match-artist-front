@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:front_end/pages/artista/artista_page.dart';
+import 'package:front_end/pages/estabelecimento/company_create_step1_page.dart';
 import 'package:front_end/pages/estabelecimento/estabelecimento_page.dart';
 import 'package:front_end/pages/home/home_page.dart';
 import 'package:front_end/pages/login/login_page.dart';
@@ -24,7 +25,8 @@ class AppWidget extends StatelessWidget {
             '/login': (context) => LoginPage(),
             '/homePage': (context) => HomePage(),
             '/estabelecimento': (context) => EstabelecimentoPage(),
-            '/artista': (context) => ArtistaPage()
+            '/artista': (context) => ArtistaPage(),
+            '/cadastroEstabelecimento': (context) => CompanyCreateStepOne(),
           },
         );
       },
