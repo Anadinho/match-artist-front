@@ -286,17 +286,19 @@ class _LoginPageState extends State<LoginPage> {
       style: ElevatedButton.styleFrom(
         primary: CustomColors().getActivePrimaryButton(),
       ),
-      onPressed: () {},
+      onPressed: () {
+        Navigator.of(context, rootNavigator: true)
+            .pushReplacementNamed('/novoArtista');
+      },
     );
     Widget companyButton = ElevatedButton(
       child: Text("Empresa"),
       style: ElevatedButton.styleFrom(
         primary: CustomColors().getActivePrimaryButton(),
       ),
-      onPressed: () {
-        Navigator.push(context,
-            MaterialPageRoute(builder: (context) => EstabelecimentoPage()));
-        return;
+      onPressed: () async {
+        Navigator.of(context, rootNavigator: true)
+            .pushReplacementNamed('/novoEstabelecimento');
       },
     );
     Widget cancelButton = TextButton(

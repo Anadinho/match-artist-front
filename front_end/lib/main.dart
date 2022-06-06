@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:front_end/pages/artista/register_artista_page.dart';
 import 'package:front_end/pages/artista/artista_page.dart';
 import 'package:front_end/pages/estabelecimento/company_create_step1_page.dart';
 import 'package:front_end/pages/estabelecimento/estabelecimento_page.dart';
+import 'package:front_end/pages/estabelecimento/register_estabelecimento_page.dart';
 import 'package:front_end/pages/home/home_page.dart';
 import 'package:front_end/pages/home/home_page2.dart';
 import 'package:front_end/pages/login/login_page.dart';
@@ -22,14 +24,15 @@ class AppWidget extends StatelessWidget {
         return MaterialApp(
           debugShowCheckedModeBanner: false,
           theme: ThemeData.dark(),
-          initialRoute: '/teste',
+          initialRoute: '/homePage',
           routes: {
             '/teste': (context) => HomePageTwo(),
-            '/login': (context) => LoginPage(),
             '/homePage': (context) => HomePage(),
+            '/login': (context) => LoginPage(),
             '/estabelecimento': (context) => EstabelecimentoPage(),
             '/artista': (context) => ArtistaPage(),
-            '/cadastroEstabelecimento': (context) => CompanyCreateStepOne(),
+            '/novoArtista': (context) => RegisterArtistaPage(),
+            '/novoEstabelecimento': (context) => RegisterEstabelecimentoPage(),
           },
         );
       },
