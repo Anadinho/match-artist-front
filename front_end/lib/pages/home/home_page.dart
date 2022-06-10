@@ -21,11 +21,9 @@ class HomePageState extends State<HomePage> {
         if (sharedPreferences.getString('role') == "2") {
           Navigator.of(context).pushReplacementNamed('/artista');
         } else {
-          Navigator.of(context).pushReplacementNamed('/estabelecimento');
+          Navigator.of(context).pushReplacementNamed('/teste');
         }
-      } else {
-        Navigator.of(context).pushReplacementNamed('/login');
-      }
+      } else {}
     });
   }
 
@@ -55,7 +53,11 @@ class HomePageState extends State<HomePage> {
             TextButton(
               onPressed: () => Get.toNamed('/indexArtista'),
               child: Text('Index artista'),
-            )
+            ),
+            TextButton(
+              onPressed: () => Get.toNamed('/login'),
+              child: Text('Realizar Login'),
+            ),
           ],
         ));
   }

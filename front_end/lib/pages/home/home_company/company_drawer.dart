@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:front_end/components/custom_colors.dart';
+import 'package:front_end/pages/artista/artista_index_page.dart';
 import 'package:front_end/pages/home/home_page2.dart';
 
 import 'company_serch_artist.dart';
@@ -106,7 +107,7 @@ selectedItem(BuildContext context, int index) {
       break;
     case 1:
       Navigator.of(context).push(MaterialPageRoute(
-        builder: (context) => CompanySerchArtist(),
+        builder: (context) => ArtistaIndexPage(),
       ));
       break;
     case 2:

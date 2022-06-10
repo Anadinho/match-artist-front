@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:front_end/pages/home/home_company/company_appbar.dart';
 import 'package:front_end/pages/home/home_company/company_drawer.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class HomePageTwo extends StatefulWidget {
   const HomePageTwo({Key? key}) : super(key: key);
@@ -15,7 +16,25 @@ class _HomePageTwo extends State<HomePageTwo> {
     return Scaffold(
       appBar: getCompanyAppBar(),
       drawer: CompanyDrawer(),
-      body: Container(),
+      body: Column(
+        children: [
+          TextButton(
+            onPressed: () async {
+              bool is_sair = await sair();
+              if (is_sair) {
+                Navigator.of(context).pushReplacementNamed('/');
+              }
+            },
+            child: Text('Sair'),
+          ),
+        ],
+      ),
     );
   }
+}
+
+Future<bool> sair() async {
+  SharedPreferences sharedPreference = await SharedPreferences.getInstance();
+  await sharedPreference.clear();
+  return true;
 }

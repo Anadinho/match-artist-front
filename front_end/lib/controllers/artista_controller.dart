@@ -20,11 +20,11 @@ class ArtistaController extends GetxController with StateMixin {
     change([], status: RxStatus.loading());
     final dados = await _artistaRepository.findAllUsers();
     change(dados, status: RxStatus.success());
-    // try {
-    //   final dados = await _artistaRepository.findAllUsers();
-    //   change(dados, status: RxStatus.success());
-    // } catch (e) {
-    //   change([], status: RxStatus.error('Erro ao buscar artistas'));
-    // }
+    try {
+      final dados = await _artistaRepository.findAllUsers();
+      change(dados, status: RxStatus.success());
+    } catch (e) {
+      change([], status: RxStatus.error('Erro ao buscar artistas'));
+    }
   }
 }

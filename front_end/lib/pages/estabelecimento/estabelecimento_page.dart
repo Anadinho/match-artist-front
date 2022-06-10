@@ -36,7 +36,7 @@ class EstabelecimentoPageState extends State<EstabelecimentoPage> {
               onPressed: () async {
                 bool is_sair = await sair();
                 if (is_sair) {
-                  Navigator.of(context).pushReplacementNamed('/homePage');
+                  Navigator.of(context).pushReplacementNamed('/');
                 }
               },
               child: Text('Sair'),
