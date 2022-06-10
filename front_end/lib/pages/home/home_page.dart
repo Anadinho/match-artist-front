@@ -38,7 +38,7 @@ class HomePageState extends State<HomePage> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Text(
-              "Home",
+              "LEMBRANDO NO MOMENTO APENAS PARA TESTE, CLIQUE EM SAIR PARA SIMULAR QUE O USUARIO SAIU DO APLICATIVO ISSO IRA LIMPAR O CACHE E O ACCESSTOKEN, TENDO QUE LOGAR NOVAMENTE",
               textAlign: TextAlign.center,
             ),
             TextButton(
