@@ -24,7 +24,7 @@ class ArtistaIndexPage extends GetView<ArtistaController> {
               );
             });
       }, onError: (error) {
-        return Center(child: Text(error));
+        return Center(child: Text(error!));
       }),
     );
   }
