@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ArtistaPage extends StatefulWidget {
@@ -36,11 +37,15 @@ class ArtistaPageState extends State<ArtistaPage> {
               onPressed: () async {
                 bool is_sair = await sair();
                 if (is_sair) {
-                  Navigator.of(context).pushReplacementNamed('/homePage');
+                  Navigator.of(context).pushReplacementNamed('/');
                 }
               },
               child: Text('Sair'),
             ),
+            TextButton(
+              onPressed: () => Get.toNamed('/indexArtista'),
+              child: Text('Index artista'),
+            )
           ],
         ));
   }

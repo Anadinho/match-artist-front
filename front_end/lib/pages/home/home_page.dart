@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:front_end/main.dart';
+import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class HomePage extends StatefulWidget {
@@ -18,7 +19,6 @@ class HomePageState extends State<HomePage> {
           await SharedPreferences.getInstance();
       if (value) {
         if (sharedPreferences.getString('role') == "2") {
-          // print("artista");
           Navigator.of(context).pushReplacementNamed('/artista');
         } else {
           Navigator.of(context).pushReplacementNamed('/estabelecimento');
@@ -47,10 +47,14 @@ class HomePageState extends State<HomePage> {
               onPressed: () async {
                 bool is_sair = await sair();
                 if (is_sair) {
-                  Navigator.of(context).pushReplacementNamed('/homePage');
+                  Navigator.of(context).pushReplacementNamed('/');
                 }
               },
               child: Text('Sair'),
+            ),
+            TextButton(
+              onPressed: () => Get.toNamed('/indexArtista'),
+              child: Text('Index artista'),
             )
           ],
         ));
