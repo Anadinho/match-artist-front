@@ -21,7 +21,7 @@ class HomePageState extends State<HomePage> {
         if (sharedPreferences.getString('role') == "2") {
           Navigator.of(context).pushReplacementNamed('/artista');
         } else {
-          Navigator.of(context).pushReplacementNamed('/teste');
+          Navigator.of(context).pushReplacementNamed('/estabelecimento');
         }
       } else {}
     });

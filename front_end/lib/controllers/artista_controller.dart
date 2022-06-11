@@ -1,5 +1,4 @@
 import 'package:get/get.dart';
-
 import 'package:front_end/repositories/contract/i_artista_repository.dart';
 
 class ArtistaController extends GetxController with StateMixin {
@@ -18,8 +17,6 @@ class ArtistaController extends GetxController with StateMixin {
 
   void findArtistas() async {
     change([], status: RxStatus.loading());
-    final dados = await _artistaRepository.findAllUsers();
-    change(dados, status: RxStatus.success());
     try {
       final dados = await _artistaRepository.findAllUsers();
       change(dados, status: RxStatus.success());

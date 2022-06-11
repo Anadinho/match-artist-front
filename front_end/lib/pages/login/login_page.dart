@@ -177,7 +177,7 @@ class _LoginPageState extends State<LoginPage> {
                                   .pushReplacementNamed('/artista');
                             } else {
                               Navigator.of(context)
-                                  .pushReplacementNamed('/teste');
+                                  .pushReplacementNamed('/estabelecimento');
                             }
                           } else {
                             _passwordController.clear();

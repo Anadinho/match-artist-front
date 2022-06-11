@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:front_end/bindings/artista_bindings.dart';
+import 'package:front_end/bindings/estabelecimento_bindings.dart';
 import 'package:front_end/pages/artista/artista_index_page.dart';
 import 'package:front_end/pages/artista/artista_page.dart';
 import 'package:front_end/pages/artista/register_artista_page.dart';
+import 'package:front_end/pages/estabelecimento/estabelecimento_index_page.dart';
 import 'package:front_end/pages/estabelecimento/estabelecimento_page.dart';
 import 'package:front_end/pages/estabelecimento/register_estabelecimento_page.dart';
 import 'package:front_end/pages/home/home_page.dart';
@@ -24,6 +26,11 @@ class MyApp extends StatelessWidget {
             name: '/indexArtista',
             page: () => ArtistaIndexPage(),
             binding: ArtistaBindings(),
+          ),
+          GetPage(
+            name: '/indexEstabelecimento',
+            page: () => EstabelecimentoIndexPage(),
+            binding: EstabelecimentoBindings(),
           ),
           GetPage(
             name: '/login',

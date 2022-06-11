@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class EstabelecimentoPage extends StatefulWidget {
@@ -40,6 +41,10 @@ class EstabelecimentoPageState extends State<EstabelecimentoPage> {
                 }
               },
               child: Text('Sair'),
+            ),
+            TextButton(
+              onPressed: () => Get.toNamed('/indexEstabelecimento'),
+              child: Text('Index estabelecimento'),
             )
           ],
         ));
