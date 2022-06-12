@@ -17,17 +17,7 @@ class _HomePageTwo extends State<HomePageTwo> {
       appBar: getCompanyAppBar(),
       drawer: CompanyDrawer(),
       body: Column(
-        children: [
-          TextButton(
-            onPressed: () async {
-              bool is_sair = await sair();
-              if (is_sair) {
-                Navigator.of(context).pushReplacementNamed('/');
-              }
-            },
-            child: Text('Sair'),
-          ),
-        ],
+        children: [],
       ),
     );
   }

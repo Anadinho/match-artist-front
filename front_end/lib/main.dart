@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:front_end/bindings/agenda_bindings.dart';
 import 'package:front_end/bindings/artista_bindings.dart';
 import 'package:front_end/bindings/estabelecimento_bindings.dart';
+import 'package:front_end/pages/agenda/agenda_estabelecimento_index_page.dart';
 import 'package:front_end/pages/artista/artista_index_page.dart';
 import 'package:front_end/pages/artista/artista_page.dart';
 import 'package:front_end/pages/artista/register_artista_page.dart';
@@ -56,6 +58,11 @@ class MyApp extends StatelessWidget {
             name: '/teste',
             page: () => HomePageTwo(),
             binding: ArtistaBindings(),
+          ),
+          GetPage(
+            name: '/agendaEstabelecimento',
+            page: () => AgendaEstabelecimentoPage(),
+            binding: AgendaEstabelecimentoBindings(),
           ),
         ])
       ],

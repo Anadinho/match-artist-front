@@ -13,18 +13,14 @@ class EstabelecimentoIndexPage extends GetView<EstabelecimentoController> {
         title: Text('Estabelecimento'),
       ),
       body: controller.obx((state) {
-        return ListView.builder(
-            itemCount: state.length,
-            itemBuilder: (_, index) {
-              final EstabelecimentoModel item = state[index];
-              return ListTile(
-                title: Text(item.name +
-                    " " +
-                    item.endereco.cidade +
-                    "-" +
-                    item.endereco.estado),
-              );
-            });
+        final EstabelecimentoModel item = state;
+        return ListTile(
+          title: Text(item.nome +
+              " " +
+              item.endereco.cidade +
+              "-" +
+              item.endereco.estado),
+        );
       }, onError: (error) {
         return Center(child: Text(error!));
       }),

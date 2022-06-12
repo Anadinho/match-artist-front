@@ -4,7 +4,7 @@ import 'package:front_end/models/endereco_model.dart';
 
 class EstabelecimentoModel {
   int id;
-  String name;
+  String nome;
   String contato;
   String cnpj;
   String descricao;
@@ -13,7 +13,7 @@ class EstabelecimentoModel {
   EnderecoModel endereco;
   EstabelecimentoModel({
     required this.id,
-    required this.name,
+    required this.nome,
     required this.contato,
     required this.cnpj,
     required this.descricao,
@@ -26,7 +26,7 @@ class EstabelecimentoModel {
     final result = <String, dynamic>{};
 
     result.addAll({'id': id});
-    result.addAll({'name': name});
+    result.addAll({'nome': nome});
     result.addAll({'contato': contato});
     result.addAll({'cnpj': cnpj});
     result.addAll({'descricao': descricao});
@@ -40,7 +40,7 @@ class EstabelecimentoModel {
   factory EstabelecimentoModel.fromMap(Map<String, dynamic> map) {
     return EstabelecimentoModel(
       id: map['id']?.toInt() ?? 0,
-      name: map['name'] ?? '',
+      nome: map['nome'] ?? '',
       contato: map['contato'] ?? '',
       cnpj: map['cnpj'] ?? '',
       descricao: map['descricao'] ?? '',
@@ -57,12 +57,12 @@ class EstabelecimentoModel {
 
   @override
   String toString() {
-    return 'EstabelecimentoModel(id: $id, name: $name, contato: $contato, cnpj: $cnpj, descricao: $descricao, genero: $genero, user_id: $user_id, endereco: $endereco)';
+    return 'EstabelecimentoModel(id: $id, nome: $nome, contato: $contato, cnpj: $cnpj, descricao: $descricao, genero: $genero, user_id: $user_id, endereco: $endereco)';
   }
 
   EstabelecimentoModel copyWith({
     int? id,
-    String? name,
+    String? nome,
     String? contato,
     String? cnpj,
     String? descricao,
@@ -72,7 +72,7 @@ class EstabelecimentoModel {
   }) {
     return EstabelecimentoModel(
       id: id ?? this.id,
-      name: name ?? this.name,
+      nome: nome ?? this.nome,
       contato: contato ?? this.contato,
       cnpj: cnpj ?? this.cnpj,
       descricao: descricao ?? this.descricao,

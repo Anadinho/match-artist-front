@@ -10,15 +10,9 @@ import 'package:front_end/repositories/contract/i_estabelecimento_repository.dar
 import 'package:front_end/repositories/estabelecimento_repository.dart';
 import 'package:get/get.dart';
 
-class ArtistaBindings implements Bindings {
+class AgendaEstabelecimentoBindings implements Bindings {
   @override
   void dependencies() {
-    Get.put<IArtistaRepository>(ArtistaRepository());
-    Get.put(ArtistaController(Get.find()));
-
-    Get.put<IEstabelecimentoRepository>(EstabelecimentoRepository());
-    Get.put(EstabelecimentoController(Get.find()));
-
     Get.put<IAgendaRepository>(AgendaRepository());
     Get.put(AgendaController(Get.find()));
   }

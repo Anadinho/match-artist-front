@@ -4,7 +4,7 @@ import '../../../components/custom_colors.dart';
 
 AppBar getCompanyAppBar() {
   return AppBar(
-    title: Text("Artistas Contratados"),
+    title: Text("Eventos Confirmados"),
     centerTitle: true,
     backgroundColor: CustomColors().getBlueColorPrimary(),
     actions: [
