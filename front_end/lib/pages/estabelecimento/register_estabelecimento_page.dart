@@ -28,9 +28,6 @@ class _RegisterEstabelecimentoPageState
         }
       },
       child: Scaffold(
-        appBar: AppBar(
-          title: const Text('Cadastro de Estabelecimento'),
-        ),
         body: Navigator(
           initialRoute: '/one',
           key: navKey,

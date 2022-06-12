@@ -27,9 +27,6 @@ class _RegisterArtistaPageState extends State<RegisterArtistaPage> {
         }
       },
       child: Scaffold(
-        appBar: AppBar(
-          title: const Text('Cadastro de Artista'),
-        ),
         body: Navigator(
           initialRoute: '/one',
           key: navKey,
