@@ -6,6 +6,8 @@ import 'package:front_end/models/register_estabelecimento_model.dart';
 import 'package:http/http.dart' as http;
 import 'package:front_end/models/register_artista_model.dart';
 
+import '../../../components/custom_colors.dart';
+
 class RegisterThreePage extends StatefulWidget {
   const RegisterThreePage({Key? key}) : super(key: key);
 
@@ -43,47 +45,207 @@ class _RegisterThreePageState extends State<RegisterThreePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Column(
-        children: [
-          Text(
-            'Endereço',
-            style: Theme.of(context).textTheme.headline4,
+    return Scaffold(
+      body: Container(
+        width: MediaQuery.of(context).size.width,
+        height: MediaQuery.of(context).size.height,
+        padding: EdgeInsets.all(20),
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: CustomColors().getBackGround()),
+        ),
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 50),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Image(
+                image: AssetImage('lib/assets/logo.png'),
+                width: 120,
+                color: CustomColors().getBlueColorPrimary(),
+              ),
+              SizedBox(height: 16),
+              Text('Endereço da Empresa',
+                  style: TextStyle(
+                    fontSize: 26.0,
+                    color: CustomColors().getWordColor(),
+                  )),
+              SizedBox(height: 16),
+              TextFormField(
+                controller: logradouroEC,
+                decoration: InputDecoration(
+                  labelText: 'Logradouro',
+                  labelStyle: TextStyle(color: CustomColors().getWordColor()),
+                  prefixIcon: Icon(
+                    Icons.gps_fixed,
+                    color: CustomColors().getWordColor(),
+                  ),
+                  enabledBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(
+                      width: 3,
+                      color: CustomColors().getWordColor(),
+                    ),
+                    borderRadius: BorderRadius.circular(5),
+                  ),
+                  focusedBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(
+                      width: 2,
+                      color: CustomColors().getWordColor(),
+                    ),
+                  ),
+                ),
+              ),
+              SizedBox(height: 16),
+              TextFormField(
+                controller: complementoEC,
+                decoration: InputDecoration(
+                  labelText: 'Complemento',
+                  labelStyle: TextStyle(color: CustomColors().getWordColor()),
+                  prefixIcon: Icon(
+                    Icons.location_city,
+                    color: CustomColors().getWordColor(),
+                  ),
+                  enabledBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(
+                      width: 3,
+                      color: CustomColors().getWordColor(),
+                    ),
+                    borderRadius: BorderRadius.circular(5),
+                  ),
+                  focusedBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(
+                      width: 2,
+                      color: CustomColors().getWordColor(),
+                    ),
+                  ),
+                ),
+              ),
+              SizedBox(height: 16),
+              TextFormField(
+                controller: numeroEC,
+                decoration: InputDecoration(
+                  labelText: 'Numero',
+                  labelStyle: TextStyle(color: CustomColors().getWordColor()),
+                  prefixIcon: Icon(
+                    Icons.location_city,
+                    color: CustomColors().getWordColor(),
+                  ),
+                  enabledBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(
+                      width: 3,
+                      color: CustomColors().getWordColor(),
+                    ),
+                    borderRadius: BorderRadius.circular(5),
+                  ),
+                  focusedBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(
+                      width: 2,
+                      color: CustomColors().getWordColor(),
+                    ),
+                  ),
+                ),
+              ),
+              SizedBox(height: 16),
+              TextFormField(
+                controller: cidadeEC,
+                decoration: InputDecoration(
+                  labelText: 'Cidade',
+                  labelStyle: TextStyle(color: CustomColors().getWordColor()),
+                  prefixIcon: Icon(
+                    Icons.location_city,
+                    color: CustomColors().getWordColor(),
+                  ),
+                  enabledBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(
+                      width: 3,
+                      color: CustomColors().getWordColor(),
+                    ),
+                    borderRadius: BorderRadius.circular(5),
+                  ),
+                  focusedBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(
+                      width: 2,
+                      color: CustomColors().getWordColor(),
+                    ),
+                  ),
+                ),
+              ),
+              SizedBox(height: 16),
+              TextFormField(
+                controller: estadoEC,
+                decoration: InputDecoration(
+                  labelText: 'Esdado',
+                  labelStyle: TextStyle(color: CustomColors().getWordColor()),
+                  prefixIcon: Icon(
+                    Icons.location_city,
+                    color: CustomColors().getWordColor(),
+                  ),
+                  enabledBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(
+                      width: 3,
+                      color: CustomColors().getWordColor(),
+                    ),
+                    borderRadius: BorderRadius.circular(5),
+                  ),
+                  focusedBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(
+                      width: 2,
+                      color: CustomColors().getWordColor(),
+                    ),
+                  ),
+                ),
+              ),
+              SizedBox(height: 16),
+              Row(
+                children: [
+                  Expanded(
+                    child: ElevatedButton(
+                      onPressed: () {
+                        var model = registerModel.copyWith(
+                            logradouro: logradouroEC.text,
+                            complemento: complementoEC.text,
+                            numero: numeroEC.text,
+                            cidade: cidadeEC.text,
+                            estado: estadoEC.text);
+                        register(model);
+                        Navigator.of(context, rootNavigator: true)
+                            .pushReplacementNamed('/login');
+                      },
+                      child: Text('CADASTRAR'),
+                      style: ElevatedButton.styleFrom(
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(50)),
+                          primary: CustomColors().getActivePrimaryButton(),
+                          padding: EdgeInsets.all(14)),
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(height: 16),
+              Row(
+                children: [
+                  Expanded(
+                    child: ElevatedButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      child: Text('VOLTAR',
+                          style: TextStyle(
+                              color: CustomColors().getActivePrimaryButton())),
+                      style: ElevatedButton.styleFrom(
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(50)),
+                          primary: CustomColors().getActiveSecondButton(),
+                          padding: EdgeInsets.all(14)),
+                    ),
+                  ),
+                ],
+              ),
+            ],
           ),
-          TextFormField(
-            controller: logradouroEC,
-            decoration: InputDecoration(labelText: 'logradouro'),
-          ),
-          TextFormField(
-            controller: complementoEC,
-            decoration: InputDecoration(labelText: 'Complemento'),
-          ),
-          TextFormField(
-            controller: numeroEC,
-            decoration: InputDecoration(labelText: 'Numero'),
-          ),
-          TextFormField(
-            controller: cidadeEC,
-            decoration: InputDecoration(labelText: 'Cidade'),
-          ),
-          TextFormField(
-            controller: estadoEC,
-            decoration: InputDecoration(labelText: 'Estado'),
-          ),
-          ElevatedButton(
-              onPressed: () {
-                var model = registerModel.copyWith(
-                    logradouro: logradouroEC.text,
-                    complemento: complementoEC.text,
-                    numero: numeroEC.text,
-                    cidade: cidadeEC.text,
-                    estado: estadoEC.text);
-                register(model);
-                Navigator.of(context, rootNavigator: true)
-                    .pushReplacementNamed('/login');
-              },
-              child: Text('Cadastrar'))
-        ],
+        ),
       ),
     );
   }

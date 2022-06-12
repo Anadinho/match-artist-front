@@ -51,32 +51,33 @@ class _LoginPageState extends State<LoginPage> {
               Text('Entrar',
                   style: TextStyle(
                     fontSize: 26.0,
-                    color: Colors.white,
+                    color: CustomColors().getWordColor(),
                   )),
               SizedBox(height: 16),
               Row(
                 children: [
                   Expanded(
                     child: TextFormField(
-                      style: TextStyle(color: Colors.white),
+                      style: TextStyle(color: CustomColors().getWordColor()),
                       decoration: InputDecoration(
                         labelText: 'Email',
-                        labelStyle: TextStyle(color: Colors.white),
+                        labelStyle:
+                            TextStyle(color: CustomColors().getWordColor()),
                         prefixIcon: Icon(
                           Icons.email,
-                          color: Colors.white,
+                          color: CustomColors().getWordColor(),
                         ),
                         enabledBorder: UnderlineInputBorder(
-                          borderSide: const BorderSide(
+                          borderSide: BorderSide(
                             width: 3,
-                            color: Colors.white,
+                            color: CustomColors().getWordColor(),
                           ),
                           borderRadius: BorderRadius.circular(5),
                         ),
                         focusedBorder: UnderlineInputBorder(
-                          borderSide: const BorderSide(
+                          borderSide: BorderSide(
                             width: 2,
-                            color: Colors.white,
+                            color: CustomColors().getWordColor(),
                           ),
                         ),
                       ),
@@ -103,26 +104,27 @@ class _LoginPageState extends State<LoginPage> {
                     child: TextFormField(
                         decoration: InputDecoration(
                           labelText: 'Senha',
-                          labelStyle: TextStyle(color: Colors.white),
+                          labelStyle:
+                              TextStyle(color: CustomColors().getWordColor()),
                           prefixIcon: Icon(
                             Icons.vpn_key_sharp,
-                            color: Colors.white,
+                            color: CustomColors().getWordColor(),
                           ),
                           enabledBorder: UnderlineInputBorder(
-                            borderSide: const BorderSide(
+                            borderSide: BorderSide(
                               width: 3,
-                              color: Colors.white,
+                              color: CustomColors().getWordColor(),
                             ),
                             borderRadius: BorderRadius.circular(5),
                           ),
                           focusedBorder: UnderlineInputBorder(
-                            borderSide: const BorderSide(
+                            borderSide: BorderSide(
                               width: 2,
-                              color: Colors.white,
+                              color: CustomColors().getWordColor(),
                             ),
                           ),
                         ),
-                        style: TextStyle(color: Colors.white),
+                        style: TextStyle(color: CustomColors().getWordColor()),
                         controller: _passwordController,
                         keyboardType: TextInputType.text,
                         obscureText: true,
@@ -142,7 +144,8 @@ class _LoginPageState extends State<LoginPage> {
                 children: [
                   Checkbox(
                     value: this.isConect,
-                    side: BorderSide(color: Colors.white, width: 2),
+                    side: BorderSide(
+                        color: CustomColors().getWordColor(), width: 2),
                     onChanged: (bool? newValue) {
                       setState(() {
                         this.isConect = newValue!;
@@ -150,7 +153,7 @@ class _LoginPageState extends State<LoginPage> {
                     },
                   ),
                   Text('Continuar conectado?',
-                      style: TextStyle(color: Colors.white))
+                      style: TextStyle(color: CustomColors().getWordColor()))
                 ],
               ),
               SizedBox(height: 16),
@@ -197,8 +200,9 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                 ],
               ),
-              Divider(height: 50, color: Colors.white),
-              Text('Já tem conta?', style: TextStyle(color: Colors.white)),
+              Divider(height: 50, color: CustomColors().getWordColor()),
+              Text('Já tem conta?',
+                  style: TextStyle(color: CustomColors().getWordColor())),
               SizedBox(height: 15),
               Row(
                 children: [
@@ -296,7 +300,7 @@ class _LoginPageState extends State<LoginPage> {
       style: ElevatedButton.styleFrom(
         primary: CustomColors().getActivePrimaryButton(),
       ),
-      onPressed: () async {
+      onPressed: () {
         Navigator.of(context, rootNavigator: true)
             .pushReplacementNamed('/novoEstabelecimento');
       },
