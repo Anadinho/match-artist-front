@@ -6,6 +6,7 @@ import 'package:front_end/pages/agenda/agenda_estabelecimento_index_page.dart';
 import 'package:front_end/pages/artista/artista_index_page.dart';
 import 'package:front_end/pages/artista/artista_page.dart';
 import 'package:front_end/pages/artista/register_artista_page.dart';
+import 'package:front_end/pages/artista/sub/sub_artista_index.dart';
 import 'package:front_end/pages/estabelecimento/estabelecimento_index_page.dart';
 import 'package:front_end/pages/estabelecimento/estabelecimento_page.dart';
 import 'package:front_end/pages/estabelecimento/register_estabelecimento_page.dart';
@@ -64,6 +65,10 @@ class MyApp extends StatelessWidget {
             name: '/agendaEstabelecimento',
             page: () => AgendaEstabelecimentoPage(),
             binding: AgendaEstabelecimentoBindings(),
+          ),
+          GetPage(
+            name: '/subIndexArtista',
+            page: () => SubArtistaIndex(),
           ),
         ])
       ],

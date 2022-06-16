@@ -51,4 +51,9 @@ class ArtistaModel {
 
   factory ArtistaModel.fromJson(String source) =>
       ArtistaModel.fromMap(json.decode(source));
+
+  @override
+  String toString() {
+    return 'ArtistaModel(id: $id, nome: $nome, contato: $contato, descricao: $descricao, genero: $genero, user_id: $user_id, endereco: $endereco)';
+  }
 }
