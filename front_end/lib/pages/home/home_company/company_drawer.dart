@@ -4,7 +4,7 @@ import 'package:front_end/controllers/estabelecimento_controller.dart';
 import 'package:front_end/models/estabelecimento_model.dart';
 import 'package:front_end/pages/agenda/agenda_estabelecimento_index_page.dart';
 import 'package:front_end/pages/artista/artista_index_page.dart';
-import 'package:front_end/pages/home/home_page2.dart';
+import 'package:front_end/pages/home/home_page_estabelecimento.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -109,11 +109,13 @@ class CompanyDrawer extends GetView<EstabelecimentoController> {
                   children: [
                     Text(
                       name,
-                      style: TextStyle(fontSize: 20, color: Colors.white),
+                      style: TextStyle(
+                          fontSize: 20, color: CustomColors().getWordColor()),
                     ),
                     Text(
                       contato,
-                      style: TextStyle(fontSize: 13, color: Colors.white),
+                      style: TextStyle(
+                          fontSize: 13, color: CustomColors().getWordColor()),
                     ),
                     SizedBox(height: 4),
                   ],
@@ -129,7 +131,7 @@ selectedItem(BuildContext context, int index) {
   switch (index) {
     case 0:
       Navigator.of(context).push(MaterialPageRoute(
-        builder: (context) => HomePageTwo(),
+        builder: (context) => HomePageEstabelecimento(),
       ));
       break;
     case 1:

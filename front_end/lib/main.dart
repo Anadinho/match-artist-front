@@ -11,7 +11,7 @@ import 'package:front_end/pages/estabelecimento/estabelecimento_index_page.dart'
 import 'package:front_end/pages/estabelecimento/estabelecimento_page.dart';
 import 'package:front_end/pages/estabelecimento/register_estabelecimento_page.dart';
 import 'package:front_end/pages/home/home_page.dart';
-import 'package:front_end/pages/home/home_page2.dart';
+import 'package:front_end/pages/home/home_page_estabelecimento.dart';
 import 'package:front_end/pages/login/login_page.dart';
 import 'package:get/get.dart';
 
@@ -54,11 +54,7 @@ class MyApp extends StatelessWidget {
           ),
           GetPage(
             name: '/estabelecimento',
-            page: () => EstabelecimentoPage(),
-          ),
-          GetPage(
-            name: '/teste',
-            page: () => HomePageTwo(),
+            page: () => HomePageEstabelecimento(),
             binding: ArtistaBindings(),
           ),
           GetPage(
@@ -70,6 +66,10 @@ class MyApp extends StatelessWidget {
             name: '/subIndexArtista',
             page: () => SubArtistaIndex(),
           ),
+          /*  GetPage(
+            name: '/estabeleciment1',
+            page: () => EstabelecimentoPage(),
+          ), */
         ])
       ],
     );
