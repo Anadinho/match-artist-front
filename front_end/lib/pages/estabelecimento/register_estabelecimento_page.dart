@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:front_end/pages/estabelecimento/steps/register_one_page.dart';
-import 'package:front_end/pages/estabelecimento/steps/register_three_page.dart';
-import 'package:front_end/pages/estabelecimento/steps/register_two_page.dart';
+import 'package:front_end/pages/estabelecimento/steps/register_estab_page_i.dart';
+import 'package:front_end/pages/estabelecimento/steps/register_estab_page_ii.dart';
+import 'package:front_end/pages/estabelecimento/steps/register_estab_page_iii.dart';
 
 class RegisterEstabelecimentoPage extends StatefulWidget {
   RegisterEstabelecimentoPage({Key? key}) : super(key: key);

@@ -4,20 +4,28 @@ import 'package:flutter/rendering.dart';
 
 import 'custom_colors.dart';
 
-class InputDecortionPatters extends StatefulWidget {
-  const InputDecortionPatters({required this.label, required this.iconLabel});
-
+class TextFildFormPatters extends StatefulWidget {
+  TextFildFormPatters(
+      {required this.label,
+      required this.iconLabel,
+      required this.controller,
+      this.obscureText});
+  final bool? obscureText;
   final String label;
   final IconData iconLabel;
+  final TextEditingController controller;
 
   @override
-  State<InputDecortionPatters> createState() => _InputDecortionPattersState();
+  State<TextFildFormPatters> createState() => _TextFildFormPattersState();
 }
 
-class _InputDecortionPattersState extends State<InputDecortionPatters> {
+class _TextFildFormPattersState extends State<TextFildFormPatters> {
   @override
   Widget build(BuildContext context) {
-    return InputDecorator(
+    return TextFormField(
+      style: TextStyle(color: CustomColors().getWordColor()),
+      obscureText: widget.obscureText ?? false,
+      controller: widget.controller,
       decoration: InputDecoration(
         labelText: widget.label,
         labelStyle: TextStyle(color: CustomColors().getWordColor()),

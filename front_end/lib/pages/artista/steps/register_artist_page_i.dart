@@ -1,7 +1,9 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:front_end/models/register_estabelecimento_model.dart';
+import 'package:front_end/models/register_artista_model.dart';
 
 import '../../../components/custom_colors.dart';
+import '../../../components/text_form_fild_patters.dart';
 
 class RegisterOnePage extends StatefulWidget {
   const RegisterOnePage({Key? key}) : super(key: key);
@@ -54,83 +56,23 @@ class _RegisterOnePageState extends State<RegisterOnePage> {
                     color: CustomColors().getWordColor(),
                   )),
               SizedBox(height: 16),
-              TextFormField(
+              TextFildFormPatters(
                 controller: nameEC,
-                style: TextStyle(color: CustomColors().getWordColor()),
-                decoration: InputDecoration(
-                  labelText: 'Nome da Empresa',
-                  labelStyle: TextStyle(color: CustomColors().getWordColor()),
-                  prefixIcon: Icon(
-                    Icons.work,
-                    color: CustomColors().getWordColor(),
-                  ),
-                  enabledBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(
-                      width: 3,
-                      color: CustomColors().getWordColor(),
-                    ),
-                    borderRadius: BorderRadius.circular(5),
-                  ),
-                  focusedBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(
-                      width: 2,
-                      color: CustomColors().getWordColor(),
-                    ),
-                  ),
-                ),
+                label: 'Nome',
+                iconLabel: Icons.person,
               ),
               SizedBox(height: 16),
-              TextFormField(
+              TextFildFormPatters(
                 controller: emailEC,
-                style: TextStyle(color: CustomColors().getWordColor()),
-                decoration: InputDecoration(
-                  labelText: 'E-mail',
-                  labelStyle: TextStyle(color: CustomColors().getWordColor()),
-                  prefixIcon: Icon(
-                    Icons.email,
-                    color: CustomColors().getWordColor(),
-                  ),
-                  enabledBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(
-                      width: 3,
-                      color: CustomColors().getWordColor(),
-                    ),
-                    borderRadius: BorderRadius.circular(5),
-                  ),
-                  focusedBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(
-                      width: 2,
-                      color: CustomColors().getWordColor(),
-                    ),
-                  ),
-                ),
+                label: 'E-mail',
+                iconLabel: Icons.email,
               ),
               SizedBox(height: 16),
-              TextFormField(
+              TextFildFormPatters(
                 controller: passwordEC,
-                style: TextStyle(color: CustomColors().getWordColor()),
+                label: 'Senha',
+                iconLabel: Icons.vpn_key_sharp,
                 obscureText: this.showPassWord,
-                decoration: InputDecoration(
-                  labelText: 'Senha',
-                  labelStyle: TextStyle(color: CustomColors().getWordColor()),
-                  prefixIcon: Icon(
-                    Icons.vpn_key_sharp,
-                    color: CustomColors().getWordColor(),
-                  ),
-                  enabledBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(
-                      width: 3,
-                      color: CustomColors().getWordColor(),
-                    ),
-                    borderRadius: BorderRadius.circular(5),
-                  ),
-                  focusedBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(
-                      width: 2,
-                      color: CustomColors().getWordColor(),
-                    ),
-                  ),
-                ),
               ),
               SizedBox(height: 16),
               TextFormField(
@@ -182,7 +124,7 @@ class _RegisterOnePageState extends State<RegisterOnePage> {
                   Expanded(
                     child: ElevatedButton(
                       onPressed: () {
-                        var model = RegisterEstabelecimentoModel(
+                        var model = RegisterArtistaModel(
                             name: nameEC.text,
                             email: emailEC.text,
                             password: passwordEC.text);
