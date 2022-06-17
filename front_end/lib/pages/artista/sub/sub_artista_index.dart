@@ -83,7 +83,6 @@ class _SubArtistaIndexState extends State<SubArtistaIndex> {
               TextButton(
                 onPressed: () {
                   var res = _controllerAgenda.store(artista.id);
-                  print(res);
                 },
                 child: Text('Enviar Proposta'),
               ),
