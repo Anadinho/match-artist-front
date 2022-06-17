@@ -2,11 +2,11 @@ import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:front_end/models/register_estabelecimento_model.dart';
 import 'package:http/http.dart' as http;
 import 'package:front_end/models/register_artista_model.dart';
 
 import '../../../components/custom_colors.dart';
+import '../../../components/text_form_fild_patters.dart';
 
 class RegisterThreePage extends StatefulWidget {
   const RegisterThreePage({Key? key}) : super(key: key);
@@ -22,14 +22,14 @@ class _RegisterThreePageState extends State<RegisterThreePage> {
   final cidadeEC = TextEditingController();
   final estadoEC = TextEditingController();
 
-  late RegisterEstabelecimentoModel registerModel;
+  late RegisterArtistaModel registerModel;
 
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance?.addPostFrameCallback((timeStamp) {
-      registerModel = ModalRoute.of(context)?.settings.arguments
-          as RegisterEstabelecimentoModel;
+      registerModel =
+          ModalRoute.of(context)?.settings.arguments as RegisterArtistaModel;
     });
   }
 
@@ -67,135 +67,40 @@ class _RegisterThreePageState extends State<RegisterThreePage> {
                 color: CustomColors().getBlueColorPrimary(),
               ),
               SizedBox(height: 16),
-              Text('Endereço da Empresa',
+              Text('Endereço',
                   style: TextStyle(
                     fontSize: 26.0,
                     color: CustomColors().getWordColor(),
                   )),
               SizedBox(height: 16),
-              TextFormField(
+              TextFildFormPatters(
                 controller: logradouroEC,
-                decoration: InputDecoration(
-                  labelText: 'Logradouro',
-                  labelStyle: TextStyle(color: CustomColors().getWordColor()),
-                  prefixIcon: Icon(
-                    Icons.gps_fixed,
-                    color: CustomColors().getWordColor(),
-                  ),
-                  enabledBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(
-                      width: 3,
-                      color: CustomColors().getWordColor(),
-                    ),
-                    borderRadius: BorderRadius.circular(5),
-                  ),
-                  focusedBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(
-                      width: 2,
-                      color: CustomColors().getWordColor(),
-                    ),
-                  ),
-                ),
+                label: 'Logradouro',
+                iconLabel: Icons.gps_fixed,
               ),
               SizedBox(height: 16),
-              TextFormField(
+              TextFildFormPatters(
                 controller: complementoEC,
-                decoration: InputDecoration(
-                  labelText: 'Complemento',
-                  labelStyle: TextStyle(color: CustomColors().getWordColor()),
-                  prefixIcon: Icon(
-                    Icons.location_city,
-                    color: CustomColors().getWordColor(),
-                  ),
-                  enabledBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(
-                      width: 3,
-                      color: CustomColors().getWordColor(),
-                    ),
-                    borderRadius: BorderRadius.circular(5),
-                  ),
-                  focusedBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(
-                      width: 2,
-                      color: CustomColors().getWordColor(),
-                    ),
-                  ),
-                ),
+                label: 'Complemento',
+                iconLabel: Icons.location_city,
               ),
               SizedBox(height: 16),
-              TextFormField(
+              TextFildFormPatters(
                 controller: numeroEC,
-                decoration: InputDecoration(
-                  labelText: 'Numero',
-                  labelStyle: TextStyle(color: CustomColors().getWordColor()),
-                  prefixIcon: Icon(
-                    Icons.location_city,
-                    color: CustomColors().getWordColor(),
-                  ),
-                  enabledBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(
-                      width: 3,
-                      color: CustomColors().getWordColor(),
-                    ),
-                    borderRadius: BorderRadius.circular(5),
-                  ),
-                  focusedBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(
-                      width: 2,
-                      color: CustomColors().getWordColor(),
-                    ),
-                  ),
-                ),
+                label: 'Numero',
+                iconLabel: Icons.location_city,
               ),
               SizedBox(height: 16),
-              TextFormField(
+              TextFildFormPatters(
                 controller: cidadeEC,
-                decoration: InputDecoration(
-                  labelText: 'Cidade',
-                  labelStyle: TextStyle(color: CustomColors().getWordColor()),
-                  prefixIcon: Icon(
-                    Icons.location_city,
-                    color: CustomColors().getWordColor(),
-                  ),
-                  enabledBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(
-                      width: 3,
-                      color: CustomColors().getWordColor(),
-                    ),
-                    borderRadius: BorderRadius.circular(5),
-                  ),
-                  focusedBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(
-                      width: 2,
-                      color: CustomColors().getWordColor(),
-                    ),
-                  ),
-                ),
+                label: 'Cidade',
+                iconLabel: Icons.location_city,
               ),
               SizedBox(height: 16),
-              TextFormField(
+              TextFildFormPatters(
                 controller: estadoEC,
-                decoration: InputDecoration(
-                  labelText: 'Esdado',
-                  labelStyle: TextStyle(color: CustomColors().getWordColor()),
-                  prefixIcon: Icon(
-                    Icons.location_city,
-                    color: CustomColors().getWordColor(),
-                  ),
-                  enabledBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(
-                      width: 3,
-                      color: CustomColors().getWordColor(),
-                    ),
-                    borderRadius: BorderRadius.circular(5),
-                  ),
-                  focusedBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(
-                      width: 2,
-                      color: CustomColors().getWordColor(),
-                    ),
-                  ),
-                ),
+                label: 'Esdado',
+                iconLabel: Icons.location_city,
               ),
               SizedBox(height: 16),
               Row(
@@ -251,14 +156,14 @@ class _RegisterThreePageState extends State<RegisterThreePage> {
   }
 }
 
-register(RegisterEstabelecimentoModel model) async {
-  var url = Uri.parse("https://match-artist.herokuapp.com/api/estabelecimento");
+register(RegisterArtistaModel model) async {
+  var url = Uri.parse("https://match-artist.herokuapp.com/api/artista");
 
   var response = await http.post(url, body: {
     'name': model.name,
     'email': model.email,
     "password": model.password,
-    "cnpj": model.cnpj,
+    "cpf": model.cpf,
     "contato": model.contato,
     "descricao": model.descricao,
     "genero": model.genero,

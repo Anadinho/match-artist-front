@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:front_end/models/register_artista_model.dart';
 
 import '../../../components/custom_colors.dart';
+import '../../../components/text_form_fild_patters.dart';
 
 class RegisterTwoPage extends StatefulWidget {
   const RegisterTwoPage({Key? key}) : super(key: key);
@@ -67,109 +68,25 @@ class _RegisterTwoPageState extends State<RegisterTwoPage> {
                     color: CustomColors().getWordColor(),
                   )),
               SizedBox(height: 16),
-              TextFormField(
-                controller: cpfEC,
-                style: TextStyle(color: CustomColors().getWordColor()),
-                decoration: InputDecoration(
-                  labelText: 'CPF',
-                  labelStyle: TextStyle(color: CustomColors().getWordColor()),
-                  prefixIcon: Icon(
-                    Icons.person_pin_outlined,
-                    color: CustomColors().getWordColor(),
-                  ),
-                  enabledBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(
-                      width: 3,
-                      color: CustomColors().getWordColor(),
-                    ),
-                    borderRadius: BorderRadius.circular(5),
-                  ),
-                  focusedBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(
-                      width: 2,
-                      color: CustomColors().getWordColor(),
-                    ),
-                  ),
-                ),
-              ),
+              TextFildFormPatters(
+                  controller: cpfEC,
+                  label: 'CPF',
+                  iconLabel: Icons.person_pin_outlined),
               SizedBox(height: 16),
-              TextFormField(
-                controller: contatoEC,
-                style: TextStyle(color: CustomColors().getWordColor()),
-                decoration: InputDecoration(
-                  labelText: 'Telefone',
-                  labelStyle: TextStyle(color: CustomColors().getWordColor()),
-                  prefixIcon: Icon(
-                    Icons.phone,
-                    color: CustomColors().getWordColor(),
-                  ),
-                  enabledBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(
-                      width: 3,
-                      color: CustomColors().getWordColor(),
-                    ),
-                    borderRadius: BorderRadius.circular(5),
-                  ),
-                  focusedBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(
-                      width: 2,
-                      color: CustomColors().getWordColor(),
-                    ),
-                  ),
-                ),
-              ),
+              TextFildFormPatters(
+                  controller: contatoEC,
+                  label: 'Telefone',
+                  iconLabel: Icons.phone),
               SizedBox(height: 16),
-              TextFormField(
-                controller: descricaoEC,
-                style: TextStyle(color: CustomColors().getWordColor()),
-                decoration: InputDecoration(
-                  labelText: 'Descrição',
-                  labelStyle: TextStyle(color: CustomColors().getWordColor()),
-                  prefixIcon: Icon(
-                    Icons.work,
-                    color: CustomColors().getWordColor(),
-                  ),
-                  enabledBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(
-                      width: 3,
-                      color: CustomColors().getWordColor(),
-                    ),
-                    borderRadius: BorderRadius.circular(5),
-                  ),
-                  focusedBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(
-                      width: 2,
-                      color: CustomColors().getWordColor(),
-                    ),
-                  ),
-                ),
-              ),
+              TextFildFormPatters(
+                  controller: descricaoEC,
+                  label: 'Descrição',
+                  iconLabel: Icons.work),
               SizedBox(height: 16),
-              TextFormField(
-                controller: generoEC,
-                style: TextStyle(color: CustomColors().getWordColor()),
-                decoration: InputDecoration(
-                  labelText: 'Genero Musical',
-                  labelStyle: TextStyle(color: CustomColors().getWordColor()),
-                  prefixIcon: Icon(
-                    Icons.work,
-                    color: CustomColors().getWordColor(),
-                  ),
-                  enabledBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(
-                      width: 3,
-                      color: CustomColors().getWordColor(),
-                    ),
-                    borderRadius: BorderRadius.circular(5),
-                  ),
-                  focusedBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(
-                      width: 2,
-                      color: CustomColors().getWordColor(),
-                    ),
-                  ),
-                ),
-              ),
+              TextFildFormPatters(
+                  controller: generoEC,
+                  label: 'Genero Musical',
+                  iconLabel: Icons.work),
               SizedBox(height: 22),
               Row(
                 children: [

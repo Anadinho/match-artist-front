@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:front_end/pages/artista/steps/register_one_page.dart';
-import 'package:front_end/pages/artista/steps/register_three_page.dart';
-import 'package:front_end/pages/artista/steps/register_two_page.dart';
+import 'package:front_end/pages/artista/steps/register_artist_page_i.dart';
+import 'package:front_end/pages/artista/steps/register_artist_page_ii.dart';
+import 'package:front_end/pages/artista/steps/register_artist_page_iii.dart';
 
 class RegisterArtistaPage extends StatefulWidget {
   RegisterArtistaPage({Key? key}) : super(key: key);
