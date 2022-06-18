@@ -26,10 +26,11 @@ class AgendaController extends GetxController with StateMixin {
     }
   }
 
-  void store(int artistaId) async {
+  store(int artistaId) async {
     change([], status: RxStatus.loading());
 
     final dados = await _agendaRepository.storeAgendaEstabelecimento(artistaId);
     change(dados, status: RxStatus.success());
+    return dados;
   }
 }

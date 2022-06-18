@@ -32,7 +32,7 @@ class AgendaRepository implements IAgendaRepository {
   }
 
   @override
-  Future<List<dynamic>> storeAgendaEstabelecimento(int artistaId) async {
+  Future storeAgendaEstabelecimento(int artistaId) async {
     SharedPreferences sharedPreference = await SharedPreferences.getInstance();
     final acess_token = sharedPreference.getString('acess_token');
     final id_estabelecimento = sharedPreference.getString('id_estabelecimento');
@@ -57,9 +57,9 @@ class AgendaRepository implements IAgendaRepository {
         headers: header,
         body: body);
 
-    print(response);
     final List<dynamic> responseMap = jsonDecode(response.body);
 
-    return responseMap;
+    final teste = responseMap.map((e) => e as String);
+    return teste;
   }
 }

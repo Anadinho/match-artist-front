@@ -73,15 +73,10 @@ class _ArtistaIndexPageState extends State<ArtistaIndexPage> {
                           Text(list[idx].genero,
                               style: TextStyle(
                                   fontWeight: FontWeight.w600, fontSize: 14)),
-
-                          /*       "\n" +
-                                    list[idx].genero +
-                                    "\n" +
-                                    list[idx].endereco.cidade +
-                                    " - " +
-                                    list[idx].endereco.estado, */
                         ],
                       ),
+                      onTap: () => Navigator.of(context)
+                          .pushNamed('/subIndexArtista', arguments: list[idx]),
                     ),
                   ),
                   actionExtentRatio: 0.25,

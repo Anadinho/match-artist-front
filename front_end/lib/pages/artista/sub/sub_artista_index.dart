@@ -1,10 +1,8 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:front_end/components/custom_colors.dart';
 import 'package:front_end/controllers/agenda_controller.dart';
 import 'package:front_end/models/artista_model.dart';
 import 'package:front_end/repositories/agenda_repository.dart';
-import 'package:retrofit/http.dart';
 
 class SubArtistaIndex extends StatefulWidget {
   const SubArtistaIndex({Key? key}) : super(key: key);
@@ -81,8 +79,26 @@ class _SubArtistaIndexState extends State<SubArtistaIndex> {
                 ),
               ),
               TextButton(
-                onPressed: () {
-                  var res = _controllerAgenda.store(artista.id);
+                onPressed: () async {
+                  final res = await _controllerAgenda.store(artista.id);
+
+                  if (res.first == 'ok') {
+                    showDialog<String>(
+                      context: context,
+                      builder: (BuildContext context) => AlertDialog(
+                        title: const Text('Proposta enviada com sucesso!!'),
+                        actions: <Widget>[
+                          TextButton(
+                            onPressed: () => Navigator.popAndPushNamed(
+                                context, '/estabelecimento'),
+                            child: const Text('OK'),
+                          ),
+                        ],
+                      ),
+                    );
+
+                    print("ENtrou no if");
+                  }
                 },
                 child: Text('Enviar Proposta'),
               ),
