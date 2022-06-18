@@ -57,8 +57,8 @@ class CompanyDrawer extends GetView<EstabelecimentoController> {
                       ),
                       const SizedBox(height: 16),
                       buildMenuitem(
-                        text: 'Agenda',
-                        icon: Icons.calendar_month,
+                        text: 'Solicitações',
+                        icon: Icons.assignment_outlined,
                         onCliCked: () => selectedItem(context, 3),
                       ),
                       const SizedBox(height: 10),
