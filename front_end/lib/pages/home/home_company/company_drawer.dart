@@ -31,7 +31,8 @@ class CompanyDrawer extends GetView<EstabelecimentoController> {
                     name: item.nome,
                     contato: item.contato,
                     onCliCked: () {
-                      Navigator.of(context).pushReplacementNamed('/testex');
+                      Navigator.of(context)
+                          .pushReplacementNamed('/estabelecimento');
                     }),
                 Container(
                   padding: padding,

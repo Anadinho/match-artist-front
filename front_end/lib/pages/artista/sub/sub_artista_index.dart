@@ -1,11 +1,25 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:front_end/components/custom_colors.dart';
+import 'package:front_end/controllers/agenda_controller.dart';
 import 'package:front_end/models/artista_model.dart';
-import 'package:retrofit/http.dart';
+import 'package:front_end/repositories/agenda_repository.dart';
 
-class SubArtistaIndex extends StatelessWidget {
+class SubArtistaIndex extends StatefulWidget {
   const SubArtistaIndex({Key? key}) : super(key: key);
+
+  @override
+  State<SubArtistaIndex> createState() => _SubArtistaIndexState();
+}
+
+class _SubArtistaIndexState extends State<SubArtistaIndex> {
+  final AgendaController _controllerAgenda =
+      AgendaController(AgendaRepository());
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -65,9 +79,26 @@ class SubArtistaIndex extends StatelessWidget {
                 ),
               ),
               TextButton(
-                onPressed: () {
-                  Navigator.of(context)
-                      .pushReplacementNamed('/proposta', arguments: artista);
+                onPressed: () async {
+                  final res = await _controllerAgenda.store(artista.id);
+
+                  if (res.first == 'ok') {
+                    showDialog<String>(
+                      context: context,
+                      builder: (BuildContext context) => AlertDialog(
+                        title: const Text('Proposta enviada com sucesso!!'),
+                        actions: <Widget>[
+                          TextButton(
+                            onPressed: () => Navigator.popAndPushNamed(
+                                context, '/estabelecimento'),
+                            child: const Text('OK'),
+                          ),
+                        ],
+                      ),
+                    );
+
+                    print("ENtrou no if");
+                  }
                 },
                 child: Text('Enviar Proposta'),
               ),
