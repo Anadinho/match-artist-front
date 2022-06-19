@@ -83,6 +83,8 @@ class CompanyDrawer extends GetView<EstabelecimentoController> {
           ),
         );
       }, onError: (error) {
+        sair();
+        Navigator.of(context).pushReplacementNamed('/login');
         return Center(child: Text('Erro ao carregar o perfil'));
       }),
     );

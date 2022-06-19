@@ -21,9 +21,6 @@ class EstabelecimentoRepository implements IEstabelecimentoRepository {
             'https://match-artist.herokuapp.com/api/estabelecimento/${id_estabelecimento}'),
         headers: header);
 
-    // Map<String, dynamic> json = jsonDecode(utf8.decode(response.bodyBytes));
-    // return EstabelecimentoModel.fromMap(json);
-
     final Map<String, dynamic> responseMap = jsonDecode(response.body)['data'];
 
     print(responseMap);
