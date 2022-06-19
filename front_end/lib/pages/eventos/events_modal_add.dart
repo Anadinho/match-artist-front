@@ -18,6 +18,8 @@ class _EventsModalAddState extends State<EventsModalAdd> {
   final descricaoEvent = TextEditingController();
   final dateEvent = TextEditingController();
 
+  final novoEvento = [];
+
   @override
   Widget build(BuildContext context) {
     return Container(

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:front_end/components/custom_colors.dart';
 import 'package:front_end/controllers/agenda_controller.dart';
+import 'package:front_end/controllers/evento_controller.dart';
 import 'package:front_end/models/artista_model.dart';
 import 'package:front_end/repositories/agenda_repository.dart';
+import 'package:front_end/repositories/evento_repository.dart';
 
 class SubArtistaIndex extends StatefulWidget {
   const SubArtistaIndex({Key? key}) : super(key: key);
@@ -12,8 +14,14 @@ class SubArtistaIndex extends StatefulWidget {
 }
 
 class _SubArtistaIndexState extends State<SubArtistaIndex> {
+  final _descricaoController = TextEditingController();
+  String descricao = '';
+
   final AgendaController _controllerAgenda =
       AgendaController(AgendaRepository());
+
+  final EventoController _controllerEvento =
+      EventoController(EventoRepository());
 
   @override
   void initState() {
@@ -27,7 +35,7 @@ class _SubArtistaIndexState extends State<SubArtistaIndex> {
         ModalRoute.of(context)!.settings.arguments as ArtistaModel;
     return Scaffold(
       appBar: AppBar(
-        title: Text(artista.nome),
+        title: Text('Proposta'),
       ),
       body: SingleChildScrollView(
         child: Container(
@@ -59,10 +67,12 @@ class _SubArtistaIndexState extends State<SubArtistaIndex> {
                 artista.endereco.cidade + " - " + artista.endereco.estado,
                 style: TextStyle(fontSize: 16),
               ),
+              // DropdownButton<String>(
+              //     items: _controllerEvento.eventos, onChanged: onChanged),
               TextFormField(
                 decoration: InputDecoration(
-                  labelText: 'Proposta',
-                  labelStyle: TextStyle(color: CustomColors().getWordColor()),
+                  labelText: 'Digite uma mensagem para o artista:',
+                  // labelStyle: TextStyle(color: CustomColors().getWordColor()),
                   enabledBorder: UnderlineInputBorder(
                     borderSide: BorderSide(
                       width: 3,
@@ -77,10 +87,13 @@ class _SubArtistaIndexState extends State<SubArtistaIndex> {
                     ),
                   ),
                 ),
+                controller: _descricaoController,
+                keyboardType: TextInputType.text,
               ),
               TextButton(
                 onPressed: () async {
-                  final res = await _controllerAgenda.store(artista.id);
+                  final res = await _controllerAgenda.store(
+                      artista.id, _descricaoController.text);
 
                   if (res.first == 'ok') {
                     showDialog<String>(
@@ -96,8 +109,6 @@ class _SubArtistaIndexState extends State<SubArtistaIndex> {
                         ],
                       ),
                     );
-
-                    print("ENtrou no if");
                   }
                 },
                 child: Text('Enviar Proposta'),
