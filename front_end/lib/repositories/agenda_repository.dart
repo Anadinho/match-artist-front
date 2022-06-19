@@ -50,6 +50,7 @@ class AgendaRepository implements IAgendaRepository {
       "descricao": "testando botao",
       "artista_id": "${artistaId}",
       "estabelecimento_id": "${id_estabelecimento}",
+      "evento_id": "1"
     };
 
     final response = await http.post(
