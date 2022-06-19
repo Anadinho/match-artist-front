@@ -8,7 +8,7 @@ import 'package:front_end/pages/home/home_page_estabelecimento.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'company_serch_artist.dart';
+import '../../eventos/events_page.dart';
 
 class CompanyDrawer extends GetView<EstabelecimentoController> {
   final padding = EdgeInsets.symmetric(horizontal: 20);
@@ -142,7 +142,7 @@ selectedItem(BuildContext context, int index) {
       break;
     case 2:
       Navigator.of(context).push(MaterialPageRoute(
-        builder: (context) => CompanySerchArtist(),
+        builder: (context) => EventsPage(),
       ));
       break;
     case 3:
