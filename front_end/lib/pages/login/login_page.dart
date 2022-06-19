@@ -60,27 +60,36 @@ class _LoginPageState extends State<LoginPage> {
                     child: TextFormField(
                       style: TextStyle(color: CustomColors().getWordColor()),
                       decoration: InputDecoration(
-                        labelText: 'Email',
-                        labelStyle:
-                            TextStyle(color: CustomColors().getWordColor()),
-                        prefixIcon: Icon(
-                          Icons.email,
-                          color: CustomColors().getWordColor(),
-                        ),
-                        enabledBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(
-                            width: 3,
+                          labelText: 'Email',
+                          labelStyle:
+                              TextStyle(color: CustomColors().getWordColor()),
+                          prefixIcon: Icon(
+                            Icons.email,
                             color: CustomColors().getWordColor(),
                           ),
-                          borderRadius: BorderRadius.circular(5),
-                        ),
-                        focusedBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(
-                            width: 2,
-                            color: CustomColors().getWordColor(),
+                          enabledBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(
+                              width: 3,
+                              color: CustomColors().getWordColor(),
+                            ),
+                            borderRadius: BorderRadius.circular(5),
                           ),
-                        ),
-                      ),
+                          focusedBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(
+                              width: 2,
+                              color: CustomColors().getWordColor(),
+                            ),
+                          ),
+                          focusedErrorBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(
+                                  width: 2, color: Colors.lightBlue)),
+                          errorBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(
+                                  width: 3, color: Colors.lightBlue)),
+                          errorStyle: TextStyle(
+                              color: Colors.lightBlue,
+                              fontSize: 15,
+                              fontWeight: FontWeight.bold)),
                       controller: _emailController,
                       keyboardType: TextInputType.emailAddress,
                       validator: (email) {
@@ -103,27 +112,36 @@ class _LoginPageState extends State<LoginPage> {
                   Expanded(
                     child: TextFormField(
                         decoration: InputDecoration(
-                          labelText: 'Senha',
-                          labelStyle:
-                              TextStyle(color: CustomColors().getWordColor()),
-                          prefixIcon: Icon(
-                            Icons.vpn_key_sharp,
-                            color: CustomColors().getWordColor(),
-                          ),
-                          enabledBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(
-                              width: 3,
+                            labelText: 'Senha',
+                            labelStyle:
+                                TextStyle(color: CustomColors().getWordColor()),
+                            prefixIcon: Icon(
+                              Icons.vpn_key_sharp,
                               color: CustomColors().getWordColor(),
                             ),
-                            borderRadius: BorderRadius.circular(5),
-                          ),
-                          focusedBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(
-                              width: 2,
-                              color: CustomColors().getWordColor(),
+                            enabledBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(
+                                width: 3,
+                                color: CustomColors().getWordColor(),
+                              ),
+                              borderRadius: BorderRadius.circular(5),
                             ),
-                          ),
-                        ),
+                            focusedBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(
+                                width: 2,
+                                color: CustomColors().getWordColor(),
+                              ),
+                            ),
+                            focusedErrorBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(
+                                    width: 2, color: Colors.lightBlue)),
+                            errorBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(
+                                    width: 3, color: Colors.lightBlue)),
+                            errorStyle: TextStyle(
+                                color: Colors.lightBlue,
+                                fontSize: 15,
+                                fontWeight: FontWeight.bold)),
                         style: TextStyle(color: CustomColors().getWordColor()),
                         controller: _passwordController,
                         keyboardType: TextInputType.text,
