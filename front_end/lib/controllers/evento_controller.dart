@@ -32,10 +32,11 @@ class EventoController extends GetxController with StateMixin {
     }
   }
 
-  store() async {
+  store(String name, String descricao, String data) async {
     change([], status: RxStatus.loading());
 
-    final dados = await _eventoRepository.storeEventoEstabelecimento();
+    final dados = await _eventoRepository.storeEventoEstabelecimento(
+        name, descricao, data);
     change(dados, status: RxStatus.success());
     return dados;
   }

@@ -10,6 +10,7 @@ import 'package:front_end/pages/artista/sub/sub_artista_index.dart';
 import 'package:front_end/pages/estabelecimento/estabelecimento_index_page.dart';
 import 'package:front_end/pages/estabelecimento/estabelecimento_page.dart';
 import 'package:front_end/pages/estabelecimento/register_estabelecimento_page.dart';
+import 'package:front_end/pages/eventos/events_page.dart';
 import 'package:front_end/pages/home/home_page.dart';
 import 'package:front_end/pages/home/home_page_estabelecimento.dart';
 import 'package:front_end/pages/login/login_page.dart';
@@ -65,6 +66,10 @@ class MyApp extends StatelessWidget {
           GetPage(
             name: '/subIndexArtista',
             page: () => SubArtistaIndex(),
+          ),
+          GetPage(
+            name: '/eventos',
+            page: () => EventsPage(),
           ),
           /*  GetPage(
             name: '/estabeleciment1',

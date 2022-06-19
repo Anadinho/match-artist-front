@@ -2,6 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:front_end/controllers/evento_controller.dart';
+import 'package:front_end/models/evento_model.dart';
+import 'package:front_end/repositories/evento_repository.dart';
 
 import '../../components/custom_colors.dart';
 import '../../components/text_form_fild_patters.dart';
@@ -14,6 +17,9 @@ class EventsModalAdd extends StatefulWidget {
 }
 
 class _EventsModalAddState extends State<EventsModalAdd> {
+  final EventoController _eventoController =
+      EventoController(EventoRepository());
+
   final nameEvent = TextEditingController();
   final descricaoEvent = TextEditingController();
   final dateEvent = TextEditingController();
@@ -63,7 +69,27 @@ class _EventsModalAddState extends State<EventsModalAdd> {
             children: [
               Expanded(
                 child: ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () async {
+                    final res = await _eventoController.store(
+                        nameEvent.text, descricaoEvent.text, dateEvent.text);
+                    print(res);
+                    if (res.first == 'ok') {
+                      print("ENTROU NO IF");
+                      showDialog<String>(
+                        context: context,
+                        builder: (BuildContext context) => AlertDialog(
+                          title: const Text('Evento criado com Sucesso!!'),
+                          actions: <Widget>[
+                            TextButton(
+                              onPressed: () => Navigator.popAndPushNamed(
+                                  context, '/eventos'),
+                              child: const Text('OK'),
+                            ),
+                          ],
+                        ),
+                      );
+                    }
+                  },
                   child: Text('Criar Evento'),
                   style: ElevatedButton.styleFrom(
                       shape: RoundedRectangleBorder(

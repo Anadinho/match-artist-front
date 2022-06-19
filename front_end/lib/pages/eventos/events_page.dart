@@ -40,7 +40,15 @@ class _EventsPageState extends State<EventsPage> {
         ),
         appBar: AppBar(
           title: Text('Eventos'),
+          leading: IconButton(
+            onPressed: () => {
+              Navigator.of(context).pushNamed('/estabelecimento'),
+            },
+            icon: Icon(Icons.arrow_back),
+          ),
+
           centerTitle: true,
+          // trailing: Icon(Icons.arrow_forward),
           backgroundColor: CustomColors().getBlueColorSecond(),
         ),
         body: ValueListenableBuilder<List<EventoModel>>(

@@ -35,7 +35,8 @@ class EventoRepository implements IEventoRepository {
   }
 
   @override
-  Future storeEventoEstabelecimento() async {
+  Future storeEventoEstabelecimento(
+      String name, String descricao, String data) async {
     SharedPreferences sharedPreference = await SharedPreferences.getInstance();
     final acess_token = sharedPreference.getString('acess_token');
     final id_estabelecimento = sharedPreference.getString('id_estabelecimento');
@@ -46,9 +47,9 @@ class EventoRepository implements IEventoRepository {
     };
 
     Map<String, String> body = {
-      "nome": "ESTABELECIMENTO",
-      "descricao": "2022-03-25 02:02:02",
-      "data": "NAO",
+      "nome": "${name}",
+      "descricao": "${descricao}",
+      "data": "${data}",
       "estabelecimento_id": "${id_estabelecimento}",
     };
 
