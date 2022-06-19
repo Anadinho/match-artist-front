@@ -5,6 +5,9 @@ import 'package:front_end/controllers/evento_controller.dart';
 import 'package:front_end/models/artista_model.dart';
 import 'package:front_end/repositories/agenda_repository.dart';
 import 'package:front_end/repositories/evento_repository.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
+
+import '../../eventos/events_page.dart';
 
 class SubArtistaIndex extends StatefulWidget {
   const SubArtistaIndex({Key? key}) : super(key: key);
@@ -68,7 +71,28 @@ class _SubArtistaIndexState extends State<SubArtistaIndex> {
                 style: TextStyle(fontSize: 16),
               ),
               // DropdownButton<String>(
-              //     items: _controllerEvento.eventos, onChanged: onChanged),
+              //
+              //SizedBox(height: 14),
+              Row(
+                children: [
+                  TextFormField(),
+                  Expanded(
+                    child: ElevatedButton(
+                      onPressed: () {
+                        showBarModalBottomSheet(
+                            context: context,
+                            builder: (context) => EventsPage());
+                      },
+                      child: Text('Selecionar Evento'),
+                      style: ElevatedButton.styleFrom(
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(50)),
+                          primary: CustomColors().getActivePrimaryButton(),
+                          padding: EdgeInsets.all(14)),
+                    ),
+                  ),
+                ],
+              ),
               TextFormField(
                 decoration: InputDecoration(
                   labelText: 'Digite uma mensagem para o artista:',
