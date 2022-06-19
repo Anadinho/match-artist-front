@@ -51,19 +51,56 @@ class _ArtistaIndexPageState extends State<ArtistaIndexPage> {
                 itemBuilder: (_, idx) => Slidable(
                   child: Container(
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(4),
+                      borderRadius: BorderRadius.circular(8),
                       color: Colors.grey[200],
                     ),
-                    padding: const EdgeInsets.all(16),
+                    padding: const EdgeInsets.all(12),
                     child: ListTile(
                       // leading: Text(list[idx].id.toString()),
                       // trailing: Icon(Icons.arrow_forward),
-                      title: Column(
+                      title: Container(
+                        child: Row(
+                          children: [
+                            CircleAvatar(
+                              radius: 30,
+                              backgroundImage:
+                                  AssetImage('lib/assets/contact.jpeg'),
+                            ),
+                            SizedBox(width: 10),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(list[idx].nome,
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 16)),
+                                SizedBox(height: 10),
+                                Text(
+                                    list[idx].endereco.cidade +
+                                        ' - ' +
+                                        list[idx].endereco.estado,
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 12)),
+                                Text(list[idx].genero,
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 14)),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                      /*  Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
-                          Text(list[idx].nome,
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w600, fontSize: 16)),
+                          Row(children: [
+                            Text(list[idx].nome,
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w600, fontSize: 16),
+                                    ),
+                          ]),
+                          SizedBox(height: 10),
                           Text(
                               list[idx].endereco.cidade +
                                   ' - ' +
@@ -74,7 +111,7 @@ class _ArtistaIndexPageState extends State<ArtistaIndexPage> {
                               style: TextStyle(
                                   fontWeight: FontWeight.w600, fontSize: 14)),
                         ],
-                      ),
+                      ), */
                       onTap: () => Navigator.of(context)
                           .pushNamed('/subIndexArtista', arguments: list[idx]),
                     ),
