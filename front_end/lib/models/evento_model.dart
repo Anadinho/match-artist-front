@@ -75,4 +75,27 @@ class EventoModel {
   String toString() {
     return 'EventoModel(id: $id, nome: $nome, descricao: $descricao, data: $data, estabelecimento_id: $estabelecimento_id, created_at: $created_at, updated_at: $updated_at)';
   }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+
+    return other is EventoModel &&
+        other.id == id &&
+        other.nome == nome &&
+        other.descricao == descricao &&
+        other.data == data &&
+        other.estabelecimento_id == estabelecimento_id &&
+        other.created_at == created_at &&
+        other.updated_at == updated_at;
+  }
+
+  int get hasCode =>
+      id.hashCode ^
+      nome.hashCode ^
+      descricao.hashCode ^
+      data.hashCode ^
+      estabelecimento_id.hashCode ^
+      created_at.hashCode ^
+      updated_at.hashCode;
 }
