@@ -6,7 +6,7 @@ AppBar getCompanyAppBar() {
   return AppBar(
     title: Text("Eventos Confirmados"),
     centerTitle: true,
-    backgroundColor: CustomColors().getBlueColorPrimary(),
+    backgroundColor: CustomColors().getBlueColorSecond(),
     actions: [
       IconButton(
         icon: Icon(

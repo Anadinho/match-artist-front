@@ -53,17 +53,19 @@ class _AgendaEstabelecimentoPageState extends State<AgendaEstabelecimentoPage> {
                       borderRadius: BorderRadius.circular(4),
                       color: Colors.grey[200],
                     ),
-                    padding: const EdgeInsets.all(16),
                     child: ListTile(
                       // leading: Text(list[idx].id.toString()),
                       // trailing: Icon(Icons.arrow_forward),
                       title: Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
+                          Container(
+                            color: Colors.blue[900],
+                            child: Text(list[idx].artista,
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w600, fontSize: 16)),
+                          ),
                           Text(list[idx].id.toString(),
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w600, fontSize: 16)),
-                          Text(list[idx].artista,
                               style: TextStyle(
                                   fontWeight: FontWeight.w600, fontSize: 16)),
                           Text(list[idx].is_artista,

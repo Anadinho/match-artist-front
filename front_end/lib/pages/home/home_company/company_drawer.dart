@@ -14,80 +14,81 @@ class CompanyDrawer extends GetView<EstabelecimentoController> {
   final padding = EdgeInsets.symmetric(horizontal: 20);
   @override
   Widget build(BuildContext context) {
-    // final name = 'TecnoBar';
-    // final email = 'tecnobar@gmail.com';
     final urlImage =
         'https://images.unsplash.com/photo-1468056961052-15507578a50d?crop=entropy&cs=tinysrgb&fm=jpg&ixlib=rb-1.2.1&q=80&raw_url=true&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774';
-    return Scaffold(
-      body: controller.obx((state) {
-        final EstabelecimentoModel item = state;
-        return Drawer(
-          child: Material(
-            color: CustomColors().getBlueColorPrimary(),
-            child: ListView(
-              children: <Widget>[
-                buildHeader(
-                    urlImage: urlImage,
-                    name: item.nome,
-                    contato: item.contato,
-                    onCliCked: () {
-                      Navigator.of(context)
-                          .pushReplacementNamed('/estabelecimento');
-                    }),
-                Container(
-                  padding: padding,
-                  child: Column(
-                    children: [
-                      buildMenuitem(
-                        text: 'Perfil',
-                        icon: Icons.people,
-                        onCliCked: () => selectedItem(context, 0),
-                      ),
-                      const SizedBox(height: 16),
-                      buildMenuitem(
-                        text: 'Artistas',
-                        icon: Icons.hail,
-                        onCliCked: () => selectedItem(context, 1),
-                      ),
-                      const SizedBox(height: 16),
-                      buildMenuitem(
-                        text: 'Eventos',
-                        icon: Icons.add_business_rounded,
-                        onCliCked: () => selectedItem(context, 2),
-                      ),
-                      const SizedBox(height: 16),
-                      buildMenuitem(
-                        text: 'Solicitações',
-                        icon: Icons.assignment_outlined,
-                        onCliCked: () => selectedItem(context, 3),
-                      ),
-                      const SizedBox(height: 10),
-                      Divider(color: Colors.white70),
-                      const SizedBox(height: 60),
-                      buildMenuitem(
-                        text: 'Sair',
-                        icon: Icons.exit_to_app,
-                        onCliCked: () async {
-                          bool is_sair = await sair();
-                          if (is_sair) {
-                            Navigator.of(context)
-                                .pushReplacementNamed('/login');
-                          }
-                        },
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
+
+    return controller.obx((state) {
+      final EstabelecimentoModel item = state;
+      return Drawer(
+        child: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: CustomColors().getBackGround()),
           ),
-        );
-      }, onError: (error) {
-        sair();
-        Navigator.of(context).pushReplacementNamed('/login');
-        return Center(child: Text('Erro ao carregar o perfil'));
-      }),
-    );
+          child: ListView(
+            children: <Widget>[
+              buildHeader(
+                  urlImage: urlImage,
+                  name: item.nome,
+                  contato: item.contato,
+                  onCliCked: () {
+                    Navigator.of(context)
+                        .pushReplacementNamed('/estabelecimento');
+                  }),
+              Container(
+                padding: padding,
+                child: Column(
+                  children: [
+                    buildMenuitem(
+                      text: 'Perfil',
+                      icon: Icons.people,
+                      onCliCked: () => selectedItem(context, 0),
+                    ),
+                    const SizedBox(height: 16),
+                    buildMenuitem(
+                      text: 'Artistas',
+                      icon: Icons.hail,
+                      onCliCked: () => selectedItem(context, 1),
+                    ),
+                    const SizedBox(height: 16),
+                    buildMenuitem(
+                      text: 'Eventos',
+                      icon: Icons.add_business_rounded,
+                      onCliCked: () => selectedItem(context, 2),
+                    ),
+                    const SizedBox(height: 16),
+                    buildMenuitem(
+                      text: 'Solicitações',
+                      icon: Icons.assignment_outlined,
+                      onCliCked: () => selectedItem(context, 3),
+                    ),
+                    const SizedBox(height: 10),
+                    Divider(color: Colors.white70),
+                    const SizedBox(height: 60),
+                    buildMenuitem(
+                      text: 'Sair',
+                      icon: Icons.exit_to_app,
+                      onCliCked: () async {
+                        bool is_sair = await sair();
+                        if (is_sair) {
+                          Navigator.of(context).pushReplacementNamed('/login');
+                        }
+                      },
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+      );
+    }, onError: (error) {
+      sair();
+      Navigator.of(context).pushReplacementNamed('/login');
+      return Center(child: Text('Erro ao carregar o perfil'));
+    });
   }
 
   buildHeader({
