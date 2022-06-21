@@ -140,7 +140,7 @@ class _SubArtistaIndexState extends State<SubArtistaIndex> {
             TextButton(
               onPressed: () async {
                 final res = await _controllerAgenda.store(
-                    artista.id, _descricaoController.text, eventoModel?.id);
+                    artista.id, _descricaoController.text, eventoModel!);
                 if (res.first == 'ok') {
                   showDialog<String>(
                     context: context,

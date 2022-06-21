@@ -17,6 +17,7 @@ class EventsModalAdd extends StatefulWidget {
 }
 
 class _EventsModalAddState extends State<EventsModalAdd> {
+  DateTime? _dateTime;
   final EventoController _eventoController =
       EventoController(EventoRepository());
 
@@ -25,6 +26,11 @@ class _EventsModalAddState extends State<EventsModalAdd> {
   final dateEvent = TextEditingController();
 
   final novoEvento = [];
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -59,19 +65,40 @@ class _EventsModalAddState extends State<EventsModalAdd> {
             iconLabel: Icons.add_comment_rounded,
           ),
           SizedBox(height: 16),
-          TextFildFormPatters(
-            controller: dateEvent,
-            label: 'Data',
-            iconLabel: Icons.calendar_month_rounded,
+          // TextFildFormPatters(
+          //   controller: dateEvent,
+          //   label: 'Data',
+          //   iconLabel: Icons.calendar_month_rounded,
+          // ),
+          Column(
+            children: <Widget>[
+              // Text(_dateTime == null ? "Nothing" : _dateTime.toString()),
+              RaisedButton(
+                child: Text("Selecione uma data"),
+                onPressed: () {
+                  showDatePicker(
+                          context: context,
+                          initialDate: DateTime.now(),
+                          firstDate: DateTime(2022),
+                          lastDate: DateTime(2222))
+                      .then((date) {
+                    setState(() {
+                      _dateTime = date!;
+                    });
+                  });
+                },
+              )
+            ],
           ),
+
           SizedBox(height: 16),
           Row(
             children: [
               Expanded(
                 child: ElevatedButton(
                   onPressed: () async {
-                    final res = await _eventoController.store(
-                        nameEvent.text, descricaoEvent.text, dateEvent.text);
+                    final res = await _eventoController.store(nameEvent.text,
+                        descricaoEvent.text, _dateTime.toString());
                     print(res);
                     if (res.first == 'ok') {
                       print("ENTROU NO IF");

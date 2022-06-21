@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:front_end/models/agenda_model.dart';
 import 'package:front_end/models/agenda_register_model.dart';
 import 'package:front_end/models/artista_model.dart';
+import 'package:front_end/models/evento_model.dart';
 import 'package:front_end/repositories/contract/i_agenda_repository.dart';
 import 'package:front_end/repositories/contract/i_artista_repository.dart';
 import 'package:http/http.dart' as http;
@@ -33,7 +34,7 @@ class AgendaRepository implements IAgendaRepository {
 
   @override
   Future storeAgendaEstabelecimento(
-      int artistaId, String descricao, int? idEvento) async {
+      int artistaId, String descricao, EventoModel evento) async {
     SharedPreferences sharedPreference = await SharedPreferences.getInstance();
     final acess_token = sharedPreference.getString('acess_token');
     final id_estabelecimento = sharedPreference.getString('id_estabelecimento');
@@ -45,13 +46,13 @@ class AgendaRepository implements IAgendaRepository {
 
     Map<String, String> body = {
       "solicitante": "ESTABELECIMENTO",
-      "evento": "2022-03-25 02:02:02",
+      "evento": "${evento.data}",
       "is_artista": "NAO",
       "is_estabelecimento": "SIM",
       "descricao": "${descricao}",
       "artista_id": "${artistaId}",
       "estabelecimento_id": "${id_estabelecimento}",
-      "evento_id": "${idEvento}"
+      "evento_id": "${evento.id}"
     };
 
     final response = await http.post(

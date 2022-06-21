@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:front_end/models/agenda_model.dart';
+import 'package:front_end/models/evento_model.dart';
 import 'package:front_end/repositories/contract/i_agenda_repository.dart';
 import 'package:get/get.dart';
 import 'package:front_end/repositories/contract/i_agenda_repository.dart';
@@ -31,12 +32,12 @@ class AgendaController extends GetxController with StateMixin {
     }
   }
 
-  store(int artistaId, String descricao, int? idEvento) async {
+  store(int artistaId, String descricao, EventoModel evento) async {
     change([], status: RxStatus.loading());
     print(descricao);
 
     final dados = await _agendaRepository.storeAgendaEstabelecimento(
-        artistaId, descricao, idEvento);
+        artistaId, descricao, evento);
     change(dados, status: RxStatus.success());
     return dados;
   }
