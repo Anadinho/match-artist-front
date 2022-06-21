@@ -23,7 +23,7 @@ class _EventsModalAddState extends State<EventsModalAdd> {
 
   final nameEvent = TextEditingController();
   final descricaoEvent = TextEditingController();
-  final dateEvent = TextEditingController();
+  late final dateEvent = TextEditingController();
 
   final novoEvento = [];
   @override
@@ -72,21 +72,63 @@ class _EventsModalAddState extends State<EventsModalAdd> {
           // ),
           Column(
             children: <Widget>[
-              // Text(_dateTime == null ? "Nothing" : _dateTime.toString()),
-              RaisedButton(
-                child: Text("Selecione uma data"),
-                onPressed: () {
-                  showDatePicker(
-                          context: context,
-                          initialDate: DateTime.now(),
-                          firstDate: DateTime(2022),
-                          lastDate: DateTime(2222))
-                      .then((date) {
-                    setState(() {
-                      _dateTime = date!;
-                    });
-                  });
-                },
+              Row(
+                children: [
+                  Expanded(
+                    child: TextFormField(
+                      controller: dateEvent,
+                      enabled: false,
+                      style: TextStyle(color: CustomColors().getWordColor()),
+                      decoration: InputDecoration(
+                        labelText: 'Data',
+                        labelStyle:
+                            TextStyle(color: CustomColors().getWordColor()),
+                        prefixIcon: Icon(
+                          Icons.calendar_month_rounded,
+                          color: CustomColors().getWordColor(),
+                        ),
+                        enabledBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(
+                            width: 3,
+                            color: CustomColors().getWordColor(),
+                          ),
+                          borderRadius: BorderRadius.circular(5),
+                        ),
+                        focusedBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(
+                            width: 2,
+                            color: CustomColors().getWordColor(),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  ElevatedButton(
+                    child: Text(
+                      'Add',
+                      style: TextStyle(
+                          color: CustomColors().getActiveSecondButton()),
+                    ),
+                    style: ElevatedButton.styleFrom(
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10)),
+                        primary: CustomColors().getActivePrimaryButton(),
+                        padding: EdgeInsets.all(14)),
+                    onPressed: () {
+                      showDatePicker(
+                              context: context,
+                              initialDate: DateTime.now(),
+                              firstDate: DateTime(2022),
+                              lastDate: DateTime(2222))
+                          .then((date) {
+                        setState(() {
+                          _dateTime = date!;
+                          // dateEvent = _dateTime.toString();
+                        });
+                      });
+                    },
+                  ),
+                ],
               )
             ],
           ),
