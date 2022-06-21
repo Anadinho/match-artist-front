@@ -20,23 +20,6 @@ class SubArtistaIndex extends StatefulWidget {
 }
 
 class _SubArtistaIndexState extends State<SubArtistaIndex> {
-  DateTime _date = DateTime.now();
-  TextEditingController dateCtl = TextEditingController();
-
-  Future<Null> _selectcDate(BuildContext context) async {
-    final DateTime picked = await showDatePicker(
-      context: context,
-      initialDate: _date,
-      firstDate: DateTime(1990),
-      lastDate: DateTime(2030),
-    );
-    if (picked != null && picked != _date) {
-      setState(() {
-        dateCtl.text = picked.toIso8601String();
-      });
-    }
-  }
-
   final _descricaoController = TextEditingController();
   int? idEvento;
   String descricao = '';
@@ -56,7 +39,6 @@ class _SubArtistaIndexState extends State<SubArtistaIndex> {
     // TODO: implement initState
     super.initState();
     this.idEvento;
-    _calendar = Calendar();
   }
 
   @override
