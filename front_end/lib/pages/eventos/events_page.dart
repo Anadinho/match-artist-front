@@ -5,6 +5,7 @@ import 'package:front_end/controllers/evento_controller.dart';
 import 'package:front_end/models/evento_model.dart';
 import 'package:front_end/pages/eventos/events_modal_add.dart';
 import 'package:front_end/repositories/evento_repository.dart';
+import 'package:intl/intl.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 class EventsPage extends StatefulWidget {
@@ -102,7 +103,7 @@ class _EventsPageState extends State<EventsPage> {
                                 ),
                                 SizedBox(height: 10),
                                 Text(
-                                  "Dia:  \n" + list[idx].data,
+                                  "Dia:  \n" + convertData(list[idx].data),
                                   style: TextStyle(
                                       fontWeight: FontWeight.w600,
                                       fontSize: 14),
@@ -134,5 +135,10 @@ class _EventsPageState extends State<EventsPage> {
             );
           },
         ));
+  }
+
+  String convertData(String date) {
+    DateTime dateTime = DateTime.parse(date);
+    return DateFormat('dd/MM/yyyy - HH:mm').format(dateTime);
   }
 }

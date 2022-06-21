@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:front_end/components/custom_colors.dart';
 import 'package:front_end/controllers/agenda_controller.dart';
 import 'package:front_end/models/agenda_model.dart';
 import 'package:front_end/repositories/agenda_repository.dart';
+import 'package:intl/intl.dart';
 
 class AgendaEstabelecimentoPage extends StatefulWidget {
   const AgendaEstabelecimentoPage({Key? key}) : super(key: key);
@@ -71,7 +71,7 @@ class _AgendaEstabelecimentoPageState extends State<AgendaEstabelecimentoPage> {
                         decoration: BoxDecoration(
                           color: Colors.grey[200],
                         ),
-                        child: Text(list[idx].evento.toString(),
+                        child: Text(convertData(list[idx].evento),
                             style: TextStyle(
                                 fontWeight: FontWeight.w600, fontSize: 16)),
                       ),
@@ -80,7 +80,10 @@ class _AgendaEstabelecimentoPageState extends State<AgendaEstabelecimentoPage> {
                         decoration: BoxDecoration(
                           color: Colors.grey[200],
                         ),
-                        child: Text(list[idx].is_artista,
+                        child: Text(
+                            list[idx].is_artista == 'NAO'
+                                ? 'Aguardando Resposta'
+                                : 'Contratado',
                             style: TextStyle(
                                 fontWeight: FontWeight.w600, fontSize: 12)),
                       ),
@@ -92,7 +95,7 @@ class _AgendaEstabelecimentoPageState extends State<AgendaEstabelecimentoPage> {
                               bottomLeft: Radius.circular(10)),
                           color: Colors.grey[200],
                         ),
-                        child: Text(list[idx].evento,
+                        child: Text(convertData(list[idx].evento),
                             style: TextStyle(
                                 fontWeight: FontWeight.w600, fontSize: 14)),
                       ),
@@ -107,6 +110,11 @@ class _AgendaEstabelecimentoPageState extends State<AgendaEstabelecimentoPage> {
             );
           },
         ));
+  }
+
+  String convertData(String dateStr) {
+    DateTime dateTime = DateTime.parse(dateStr);
+    return DateFormat('dd/MM/yyyy - HH:mm').format(dateTime);
   }
 }
  
