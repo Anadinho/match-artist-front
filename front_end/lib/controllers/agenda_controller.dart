@@ -28,7 +28,18 @@ class AgendaController extends GetxController with StateMixin {
       agendas.value = await _agendaRepository.findAllAgendaEstabelecimento();
       change(agendas.value, status: RxStatus.success());
     } catch (e) {
-      change([], status: RxStatus.error('Erro ao buscar agenda'));
+      change([],
+          status: RxStatus.error('Erro ao buscar agenda estabelecimento'));
+    }
+  }
+
+  void findAllAgendaArtista() async {
+    change([], status: RxStatus.loading());
+    try {
+      agendas.value = await _agendaRepository.findAllAgendaArtista();
+      change(agendas.value, status: RxStatus.success());
+    } catch (e) {
+      change([], status: RxStatus.error('Erro ao buscar agenda artista'));
     }
   }
 

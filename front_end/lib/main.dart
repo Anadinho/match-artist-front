@@ -12,6 +12,7 @@ import 'package:front_end/pages/estabelecimento/estabelecimento_page.dart';
 import 'package:front_end/pages/estabelecimento/register_estabelecimento_page.dart';
 import 'package:front_end/pages/eventos/events_page.dart';
 import 'package:front_end/pages/home/home_page.dart';
+import 'package:front_end/pages/home/home_page_artista.dart';
 import 'package:front_end/pages/home/home_page_estabelecimento.dart';
 import 'package:front_end/pages/login/login_page.dart';
 import 'package:get/get.dart';
@@ -43,7 +44,8 @@ class MyApp extends StatelessWidget {
           ),
           GetPage(
             name: '/artista',
-            page: () => ArtistaPage(),
+            page: () => HomePageArtista(),
+            binding: ArtistaBindings(),
           ),
           GetPage(
             name: '/novoArtista',

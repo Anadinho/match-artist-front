@@ -32,6 +32,27 @@ class AgendaRepository implements IAgendaRepository {
         .toList();
   }
 
+  Future<List<AgendaModel>> findAllAgendaArtista() async {
+    SharedPreferences sharedPreference = await SharedPreferences.getInstance();
+    final acess_token = sharedPreference.getString('acess_token');
+    final id_artista = sharedPreference.getString('id_artista');
+
+    Map<String, String> header = {
+      'authorization': "${acess_token}",
+      'Accept': "application/json"
+    };
+
+    final response = await http.get(
+        Uri.parse(
+            'https://match-artist.herokuapp.com/api/agenda/artista/${id_artista}'),
+        headers: header);
+
+    final List<dynamic> responseMap = jsonDecode(response.body);
+    return responseMap
+        .map<AgendaModel>((resp) => AgendaModel.fromMap(resp))
+        .toList();
+  }
+
   @override
   Future storeAgendaEstabelecimento(
       int artistaId, String descricao, EventoModel evento) async {

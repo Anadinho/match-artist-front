@@ -4,6 +4,7 @@ import 'package:front_end/models/evento_model.dart';
 
 abstract class IAgendaRepository {
   Future<List<AgendaModel>> findAllAgendaEstabelecimento();
+  Future<List<AgendaModel>> findAllAgendaArtista();
   Future storeAgendaEstabelecimento(
       int artistaId, String descricao, EventoModel evento);
 }

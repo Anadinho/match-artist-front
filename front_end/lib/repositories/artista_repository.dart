@@ -25,4 +25,25 @@ class ArtistaRepository implements IArtistaRepository {
         .map<ArtistaModel>((resp) => ArtistaModel.fromMap(resp))
         .toList();
   }
+
+  Future<ArtistaModel> findAllArtistas() async {
+    SharedPreferences sharedPreference = await SharedPreferences.getInstance();
+    final acess_token = sharedPreference.getString('acess_token');
+    final id_artista = sharedPreference.getString('id_artista');
+
+    Map<String, String> header = {
+      'authorization': "${acess_token}",
+      'Accept': "application/json"
+    };
+
+    final response = await http.get(
+        Uri.parse(
+            'https://match-artist.herokuapp.com/api/artista/${id_artista}'),
+        headers: header);
+
+    final Map<String, dynamic> responseMap = jsonDecode(response.body)['data'];
+
+    print(responseMap);
+    return ArtistaModel.fromMap(responseMap);
+  }
 }

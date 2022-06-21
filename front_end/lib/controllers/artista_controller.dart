@@ -14,7 +14,7 @@ class ArtistaController extends GetxController with StateMixin {
   void onInit() {
     // TODO: implement onInit
     super.onInit();
-    findArtistas();
+    findAllArtistas();
   }
 
   ValueNotifier<List<ArtistaModel>> artistas =
@@ -25,6 +25,16 @@ class ArtistaController extends GetxController with StateMixin {
     try {
       artistas.value = await _artistaRepository.findAllUsers();
       change(artistas.value, status: RxStatus.success());
+    } catch (e) {
+      change([], status: RxStatus.error('Erro ao buscar artistas'));
+    }
+  }
+
+  void findAllArtistas() async {
+    change([], status: RxStatus.loading());
+    try {
+      final dados = await _artistaRepository.findAllArtistas();
+      change(dados, status: RxStatus.success());
     } catch (e) {
       change([], status: RxStatus.error('Erro ao buscar artistas'));
     }

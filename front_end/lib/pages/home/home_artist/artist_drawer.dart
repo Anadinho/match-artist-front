@@ -1,24 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:front_end/components/custom_colors.dart';
-import 'package:front_end/controllers/estabelecimento_controller.dart';
-import 'package:front_end/models/estabelecimento_model.dart';
+import 'package:front_end/controllers/artista_controller.dart';
+import 'package:front_end/models/artista_model.dart';
+import 'package:front_end/pages/agenda/agenda_artista_index_page.dart';
 import 'package:front_end/pages/agenda/agenda_estabelecimento_index_page.dart';
 import 'package:front_end/pages/artista/artista_index_page.dart';
+import 'package:front_end/pages/home/home_page_artista.dart';
 import 'package:front_end/pages/home/home_page_estabelecimento.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../eventos/events_page.dart';
 
-class CompanyDrawer extends GetView<EstabelecimentoController> {
+class ArtistDrawer extends GetView<ArtistaController> {
   final padding = EdgeInsets.symmetric(horizontal: 20);
   @override
   Widget build(BuildContext context) {
-    final urlImage =
-        'https://images.unsplash.com/photo-1468056961052-15507578a50d?crop=entropy&cs=tinysrgb&fm=jpg&ixlib=rb-1.2.1&q=80&raw_url=true&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774';
+    final urlImage = 'https://cdn-icons-png.flaticon.com/512/195/195128.png';
 
     return controller.obx((state) {
-      final EstabelecimentoModel item = state;
+      final ArtistaModel item = state;
       return Drawer(
         child: Container(
           decoration: BoxDecoration(
@@ -47,25 +48,13 @@ class CompanyDrawer extends GetView<EstabelecimentoController> {
                     ),
                     const SizedBox(height: 16),
                     buildMenuitem(
-                      text: 'Artistas',
-                      icon: Icons.hail,
-                      onCliCked: () => selectedItem(context, 1),
-                    ),
-                    const SizedBox(height: 16),
-                    buildMenuitem(
-                      text: 'Eventos',
-                      icon: Icons.add_business_rounded,
-                      onCliCked: () => selectedItem(context, 2),
-                    ),
-                    const SizedBox(height: 16),
-                    buildMenuitem(
                       text: 'Solicitações',
                       icon: Icons.assignment_outlined,
                       onCliCked: () => selectedItem(context, 3),
                     ),
                     const SizedBox(height: 10),
                     Divider(color: Colors.white70),
-                    const SizedBox(height: 60),
+                    const SizedBox(height: 170),
                     buildMenuitem(
                       text: 'Sair',
                       icon: Icons.exit_to_app,
@@ -134,7 +123,7 @@ selectedItem(BuildContext context, int index) {
   switch (index) {
     case 0:
       Navigator.of(context).push(MaterialPageRoute(
-        builder: (context) => HomePageEstabelecimento(),
+        builder: (context) => HomePageArtista(),
       ));
       break;
     case 1:
@@ -149,7 +138,7 @@ selectedItem(BuildContext context, int index) {
       break;
     case 3:
       Navigator.of(context).push(MaterialPageRoute(
-        builder: (context) => AgendaEstabelecimentoPage(),
+        builder: (context) => AgendaArtistaPage(),
       ));
       break;
   }
