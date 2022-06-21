@@ -63,7 +63,7 @@ class _EventsPageState extends State<EventsPage> {
                 gradient: LinearGradient(
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
-                    colors: CustomColors().getBackGround()),
+                    colors: CustomColors().getBackGroundTwo()),
               ),
               child: ListView.separated(
                 shrinkWrap: true,

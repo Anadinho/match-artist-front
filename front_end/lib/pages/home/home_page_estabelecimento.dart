@@ -35,7 +35,7 @@ class _HomePageEstabelecimento extends State<HomePageEstabelecimento> {
           gradient: LinearGradient(
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
-              colors: CustomColors().getBackGround()),
+              colors: CustomColors().getBackGroundTwo()),
         ),
         child: Column(
           children: [],

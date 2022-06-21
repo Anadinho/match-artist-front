@@ -46,6 +46,16 @@ class _SubArtistaIndexState extends State<SubArtistaIndex> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Proposta'),
+        backgroundColor: CustomColors().getBlueColorSecond(),
+        actions: [
+          IconButton(
+            icon: Icon(
+              Icons.more_vert_rounded,
+              color: Colors.white,
+            ),
+            onPressed: () {},
+          )
+        ],
       ),
       body: Container(
         width: MediaQuery.of(context).size.width,

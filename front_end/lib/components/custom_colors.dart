@@ -7,6 +7,10 @@ class CustomColors {
   Color _blueColorPrimary = Color(0xff0288d1);
   Color _blueColorSecond = Color(0xff00056b);
   List<Color> _getBackGround = [Color(0xff00056b), Color(0xff0288d1)];
+  List<Color> _getBackGroundTwo = [
+    Color.fromARGB(255, 0, 3, 60),
+    Color(0xff00056b)
+  ];
 
   Color getWordColor() {
     return _wordColor;
@@ -30,5 +34,9 @@ class CustomColors {
 
   List<Color> getBackGround() {
     return _getBackGround;
+  }
+
+  List<Color> getBackGroundTwo() {
+    return _getBackGroundTwo;
   }
 }
