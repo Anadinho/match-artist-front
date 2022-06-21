@@ -1,5 +1,10 @@
+import 'dart:html';
+
+import 'package:brasil_fields/brasil_fields.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:front_end/models/register_estabelecimento_model.dart';
+import 'package:validatorless/validatorless.dart';
 
 import '../../../components/custom_colors.dart';
 import '../../../components/text_form_fild_patters.dart';
@@ -13,6 +18,8 @@ class RegisterOnePage extends StatefulWidget {
 
 class _RegisterOnePageState extends State<RegisterOnePage> {
   bool showPassWord = true;
+
+  final _formKey = GlobalKey<FormState>();
   final nameEC = TextEditingController();
   final emailEC = TextEditingController();
   final passwordEC = TextEditingController();
@@ -40,125 +47,128 @@ class _RegisterOnePageState extends State<RegisterOnePage> {
         ),
         child: SingleChildScrollView(
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 50),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Image(
-                image: AssetImage('lib/assets/logo.png'),
-                width: 120,
-                color: CustomColors().getBlueColorPrimary(),
-              ),
-              SizedBox(height: 16),
-              Text('Cadastro',
-                  style: TextStyle(
-                    fontSize: 26.0,
-                    color: CustomColors().getWordColor(),
-                  )),
-              SizedBox(height: 16),
-              TextFildFormPatters(
-                  controller: nameEC,
-                  label: 'Nome da Empresa',
-                  iconLabel: Icons.work),
-              SizedBox(height: 16),
-              TextFildFormPatters(
-                controller: emailEC,
-                label: 'E-mail',
-                iconLabel: Icons.email,
-              ),
-              SizedBox(height: 16),
-              TextFildFormPatters(
-                  controller: passwordEC,
-                  label: 'Senha',
-                  iconLabel: Icons.vpn_key_sharp,
-                  obscureText: this.showPassWord),
-              SizedBox(height: 16),
-              TextFormField(
-                style: TextStyle(color: CustomColors().getWordColor()),
-                obscureText: this.showPassWord,
-                decoration: InputDecoration(
-                  labelText: 'Confirmar Senha',
-                  labelStyle: TextStyle(color: CustomColors().getWordColor()),
-                  prefixIcon: Icon(
-                    Icons.vpn_key_sharp,
-                    color: CustomColors().getWordColor(),
-                  ),
-                  enabledBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(
-                      width: 3,
-                      color: CustomColors().getWordColor(),
-                    ),
-                    borderRadius: BorderRadius.circular(5),
-                  ),
-                  focusedBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(
-                      width: 2,
-                      color: CustomColors().getWordColor(),
-                    ),
-                  ),
+          child: Form(
+            key: _formKey,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Image(
+                  image: AssetImage('lib/assets/logo.png'),
+                  width: 120,
+                  color: CustomColors().getBlueColorPrimary(),
                 ),
-              ),
-              SizedBox(height: 16),
-              Row(
-                children: [
-                  Checkbox(
-                    value: this.showPassWord,
-                    activeColor: Colors.blue,
-                    onChanged: (bool? newValue) {
-                      setState(() {
-                        this.showPassWord = newValue!;
-                      });
-                    },
-                  ),
-                  Text(
-                    'Ocultar senha',
-                    style: TextStyle(color: CustomColors().getWordColor()),
-                  )
-                ],
-              ),
-              SizedBox(height: 16),
-              Row(
-                children: [
-                  Expanded(
-                    child: ElevatedButton(
-                      onPressed: () {
-                        var model = RegisterEstabelecimentoModel(
-                            name: nameEC.text,
-                            email: emailEC.text,
-                            password: passwordEC.text);
-                        Navigator.pushNamed(context, '/two', arguments: model);
+                SizedBox(height: 16),
+                Text('Cadastro',
+                    style: TextStyle(
+                      fontSize: 26.0,
+                      color: CustomColors().getWordColor(),
+                    )),
+                SizedBox(height: 16),
+                TextFildFormPatters(
+                    controller: nameEC,
+                    label: 'Nome da Empresa',
+                    iconLabel: Icons.work),
+                SizedBox(height: 16),
+                TextFildFormPatters(
+                    controller: emailEC,
+                    label: 'E-mail',
+                    iconLabel: Icons.email,
+                    validator: Validatorless.multiple(
+                      [
+                        Validatorless.required('Campo Obrigatorio'),
+                        Validatorless.email('E-mail invalido!'),
+                      ],
+                    )),
+                SizedBox(height: 16),
+                TextFildFormPatters(
+                    controller: passwordEC,
+                    label: 'Senha',
+                    iconLabel: Icons.vpn_key_sharp,
+                    obscureText: this.showPassWord,
+                    validator: Validatorless.multiple(
+                      [
+                        Validatorless.required('Campo Obrigatorio'),
+                      ],
+                    )),
+                SizedBox(height: 16),
+                TextFildFormPatters(
+                    label: 'Confirmar Senha',
+                    iconLabel: Icons.vpn_key_sharp,
+                    obscureText: this.showPassWord,
+                    validator: Validatorless.multiple(
+                      [
+                        Validatorless.compare(passwordEC, 'Senha diferente'),
+                      ],
+                    )),
+                SizedBox(height: 16),
+                Row(
+                  children: [
+                    Checkbox(
+                      value: this.showPassWord,
+                      activeColor: Colors.blue,
+                      onChanged: (bool? newValue) {
+                        setState(() {
+                          this.showPassWord = newValue!;
+                        });
                       },
-                      child: Text('PRÓXIMO'),
-                      style: ElevatedButton.styleFrom(
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(50)),
-                          primary: CustomColors().getActivePrimaryButton(),
-                          padding: EdgeInsets.all(14)),
                     ),
-                  ),
-                ],
-              ),
-              SizedBox(height: 16),
-              Row(
-                children: [
-                  Expanded(
-                    child: ElevatedButton(
-                      onPressed: () {
-                        Navigator.of(context, rootNavigator: true)
-                            .pushReplacementNamed('/homePage');
-                      },
-                      child: Text('SAIR',
-                          style: TextStyle(
-                              color: CustomColors().getActivePrimaryButton())),
-                      style: ElevatedButton.styleFrom(
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(50)),
-                          primary: CustomColors().getActiveSecondButton(),
-                          padding: EdgeInsets.all(14)),
+                    Text(
+                      'Ocultar senha',
+                      style: TextStyle(color: CustomColors().getWordColor()),
+                    )
+                  ],
+                ),
+                SizedBox(height: 16),
+                Row(
+                  children: [
+                    Expanded(
+                      child: ElevatedButton(
+                        onPressed: () {
+                          var formValid =
+                              _formKey.currentState?.validate() ?? false;
+                          if (formValid) {
+                            var model = RegisterEstabelecimentoModel(
+                                name: nameEC.text,
+                                email: emailEC.text,
+                                password: passwordEC.text);
+                            Navigator.pushNamed(context, '/two',
+                                arguments: model);
+                          }
+                        },
+                        child: Text('PRÓXIMO'),
+                        style: ElevatedButton.styleFrom(
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(50)),
+                            primary: CustomColors().getActivePrimaryButton(),
+                            padding: EdgeInsets.all(14)),
+                      ),
                     ),
-                  ),
-                ],
-              ),
-            ],
+                  ],
+                ),
+                SizedBox(height: 16),
+                Row(
+                  children: [
+                    Expanded(
+                      child: ElevatedButton(
+                        onPressed: () {
+                          Navigator.of(context, rootNavigator: true)
+                              .pushReplacementNamed('/homePage');
+                        },
+                        child: Text('SAIR',
+                            style: TextStyle(
+                                color:
+                                    CustomColors().getActivePrimaryButton())),
+                        style: ElevatedButton.styleFrom(
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(50)),
+                            primary: CustomColors().getActiveSecondButton(),
+                            padding: EdgeInsets.all(14)),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
       ),

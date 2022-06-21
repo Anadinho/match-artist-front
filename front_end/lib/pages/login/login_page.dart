@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:front_end/main.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:validatorless/validatorless.dart';
 
 import '../../components/custom_colors.dart';
 import '../estabelecimento/estabelecimento_page.dart';
@@ -58,51 +59,44 @@ class _LoginPageState extends State<LoginPage> {
                 children: [
                   Expanded(
                     child: TextFormField(
-                      style: TextStyle(color: CustomColors().getWordColor()),
-                      decoration: InputDecoration(
-                          labelText: 'Email',
-                          labelStyle:
-                              TextStyle(color: CustomColors().getWordColor()),
-                          prefixIcon: Icon(
-                            Icons.email,
-                            color: CustomColors().getWordColor(),
-                          ),
-                          enabledBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(
-                              width: 3,
+                        style: TextStyle(color: CustomColors().getWordColor()),
+                        decoration: InputDecoration(
+                            labelText: 'Email',
+                            labelStyle:
+                                TextStyle(color: CustomColors().getWordColor()),
+                            prefixIcon: Icon(
+                              Icons.email,
                               color: CustomColors().getWordColor(),
                             ),
-                            borderRadius: BorderRadius.circular(5),
-                          ),
-                          focusedBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(
-                              width: 2,
-                              color: CustomColors().getWordColor(),
+                            enabledBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(
+                                width: 3,
+                                color: CustomColors().getWordColor(),
+                              ),
+                              borderRadius: BorderRadius.circular(5),
                             ),
-                          ),
-                          focusedErrorBorder: UnderlineInputBorder(
+                            focusedBorder: UnderlineInputBorder(
                               borderSide: BorderSide(
-                                  width: 2, color: Colors.lightBlue)),
-                          errorBorder: UnderlineInputBorder(
-                              borderSide: BorderSide(
-                                  width: 3, color: Colors.lightBlue)),
-                          errorStyle: TextStyle(
-                              color: Colors.lightBlue,
-                              fontSize: 15,
-                              fontWeight: FontWeight.bold)),
-                      controller: _emailController,
-                      keyboardType: TextInputType.emailAddress,
-                      validator: (email) {
-                        if (email == null || email.isEmpty) {
-                          return 'Campo Obrigatorio!';
-                        } else if (!RegExp(
-                                r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-                            .hasMatch(_emailController.text)) {
-                          return 'Campo invalido!';
-                        }
-                        return null;
-                      },
-                    ),
+                                width: 2,
+                                color: CustomColors().getWordColor(),
+                              ),
+                            ),
+                            focusedErrorBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(
+                                    width: 2, color: Colors.lightBlue)),
+                            errorBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(
+                                    width: 3, color: Colors.lightBlue)),
+                            errorStyle: TextStyle(
+                                color: Colors.lightBlue,
+                                fontSize: 15,
+                                fontWeight: FontWeight.bold)),
+                        controller: _emailController,
+                        keyboardType: TextInputType.emailAddress,
+                        validator: Validatorless.multiple([
+                          Validatorless.required('Campo Obrigatorio'),
+                          Validatorless.email('Campo invalido!')
+                        ])),
                   )
                 ],
               ),
@@ -146,14 +140,11 @@ class _LoginPageState extends State<LoginPage> {
                         controller: _passwordController,
                         keyboardType: TextInputType.text,
                         obscureText: true,
-                        validator: (senha) {
-                          if (senha == null || senha.isEmpty) {
-                            return 'Campo Obrigatorio!';
-                          } else if (senha.length < 6) {
-                            return "Por favor, digite uma senha maior que 6 caracteres";
-                          }
-                          return null;
-                        }),
+                        validator: Validatorless.multiple([
+                          Validatorless.required('Campo Obrigatorio'),
+                          Validatorless.min(
+                              6, 'Senha deve ser maior que 6 caracteres')
+                        ])),
                   )
                 ],
               ),
