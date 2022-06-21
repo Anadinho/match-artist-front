@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:front_end/bindings/agenda_bindings.dart';
 import 'package:front_end/bindings/artista_bindings.dart';
 import 'package:front_end/bindings/estabelecimento_bindings.dart';
+import 'package:front_end/pages/agenda/agenda_artista_index_page.dart';
 import 'package:front_end/pages/agenda/agenda_estabelecimento_index_page.dart';
 import 'package:front_end/pages/artista/artista_index_page.dart';
 import 'package:front_end/pages/artista/artista_page.dart';
@@ -72,6 +73,10 @@ class MyApp extends StatelessWidget {
           GetPage(
             name: '/eventos',
             page: () => EventsPage(),
+          ),
+          GetPage(
+            name: '/agendaArtistaPage',
+            page: () => AgendaArtistaPage(),
           ),
           /*  GetPage(
             name: '/estabeleciment1',

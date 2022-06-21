@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:intl/intl.dart';
 import 'package:front_end/components/custom_colors.dart';
 import 'package:front_end/controllers/agenda_controller.dart';
 import 'package:front_end/models/agenda_model.dart';
 import 'package:front_end/repositories/agenda_repository.dart';
+import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 class AgendaArtistaPage extends StatefulWidget {
   const AgendaArtistaPage({Key? key}) : super(key: key);
@@ -61,7 +63,10 @@ class _AgendaArtistaPageState extends State<AgendaArtistaPage> {
                                 topLeft: Radius.circular(10)),
                             color: Color.fromARGB(255, 0, 3, 60)),
                         padding: EdgeInsets.all(10),
-                        child: Text(list[idx].artista,
+                        child: Text(
+                            list[idx].id.toString() +
+                                " - " +
+                                list[idx].estabelecimento,
                             style: TextStyle(
                                 color: Colors.grey[300], fontSize: 16)),
                       ),
@@ -70,9 +75,47 @@ class _AgendaArtistaPageState extends State<AgendaArtistaPage> {
                         decoration: BoxDecoration(
                           color: Colors.grey[200],
                         ),
-                        child: Text(list[idx].evento.toString(),
-                            style: TextStyle(
-                                fontWeight: FontWeight.w600, fontSize: 16)),
+                        child: TextButton(
+                          onPressed: () async {
+                            showDialog<String>(
+                              context: context,
+                              builder: (BuildContext context) => AlertDialog(
+                                title: list[idx].is_artista == "SIM"
+                                    ? const Text('Evento aceito!!')
+                                    : const Text('Evento Cancelado!!'),
+                                actions: <Widget>[
+                                  TextButton(
+                                    onPressed: () => {
+                                      confirmarAgenda(list[idx]),
+                                      Navigator.pop(context),
+                                      Navigator.of(context)
+                                          .pushNamed('agendaArtistaPage'),
+                                    },
+                                    child: const Text('OK'),
+                                  ),
+                                ],
+                              ),
+                            );
+                          },
+                          child: list[idx].is_artista == "NAO"
+                              ? Text('Aceitar')
+                              : Text('Cancelar'),
+                        ),
+                      ),
+                      Container(
+                        padding: EdgeInsets.only(top: 4, left: 8),
+                        decoration: BoxDecoration(
+                          color: Colors.grey[200],
+                        ),
+                      ),
+                      Container(
+                        padding: EdgeInsets.only(top: 4, left: 8),
+                        decoration: BoxDecoration(
+                          color: Colors.grey[200],
+                        ),
+                        child: Text(list[idx].nome_evento,
+                            style:
+                                TextStyle(color: Colors.black, fontSize: 16)),
                       ),
                       Container(
                         padding: EdgeInsets.only(top: 4, left: 8),
@@ -91,10 +134,46 @@ class _AgendaArtistaPageState extends State<AgendaArtistaPage> {
                               bottomLeft: Radius.circular(10)),
                           color: Colors.grey[200],
                         ),
-                        child: Text(list[idx].evento,
+                        child: Text(convertData(list[idx].evento),
                             style: TextStyle(
                                 fontWeight: FontWeight.w600, fontSize: 14)),
                       ),
+                      // TextButton(
+                      //   onPressed: () async {
+                      //     showDialog<String>(
+                      //       context: context,
+                      //       builder: (BuildContext context) => AlertDialog(
+                      //         title: const Text('Evento aceito!!'),
+                      //         actions: <Widget>[
+                      //           TextButton(
+                      //             onPressed: () => Navigator.popAndPushNamed(
+                      //                 context, '/agendaArtistaPage'),
+                      //             child: const Text('OK'),
+                      //           ),
+                      //         ],
+                      //       ),
+                      //     );
+                      //   },
+                      //   child: Text('Aceitar'),
+                      // ),
+                      // TextButton(
+                      //   onPressed: () async {
+                      //     showDialog<String>(
+                      //       context: context,
+                      //       builder: (BuildContext context) => AlertDialog(
+                      //         title: const Text('Evento Cancelado!!'),
+                      //         actions: <Widget>[
+                      //           TextButton(
+                      //             onPressed: () => Navigator.popAndPushNamed(
+                      //                 context, '/agendaArtistaPage'),
+                      //             child: const Text('OK'),
+                      //           ),
+                      //         ],
+                      //       ),
+                      //     );
+                      //   },
+                      //   child: Text('Cancelar'),
+                      // ),
                     ],
                   ),
                   // onTap: () => Navigator.of(context)
@@ -107,34 +186,36 @@ class _AgendaArtistaPageState extends State<AgendaArtistaPage> {
           },
         ));
   }
-}
- 
- 
- 
- 
-  // @override
-  // Widget build(BuildContext context) {
-  //   return Scaffold(
-  //     appBar: AppBar(
-  //       title: Text('AGENDA'),
-  //     ),
-  //     body: controller.obx((state) {
-  //       return ListView.builder(
-  //           itemCount: state.length,
-  //           itemBuilder: (_, index) {
-  //             final AgendaModel item = state[index];
-  //             return ListTile(
-  //               title: Text("${item.id} -" +
-  //                   item.artista +
-  //                   " " +
-  //                   item.evento +
-  //                   "-" +
-  //                   item.is_artista),
-  //             );
-  //           });
-  //     }, onError: (error) {
-  //       return Center(child: Text(error!));
-  //     }),
-  //   );
-  // }
 
+  String convertData(String dateStr) {
+    DateTime dateTime = DateTime.parse(dateStr);
+    return DateFormat('dd/MM/yyyy - HH:mm').format(dateTime);
+  }
+}
+
+confirmarAgenda(AgendaModel model) async {
+  SharedPreferences sharedPreference = await SharedPreferences.getInstance();
+  final acess_token = sharedPreference.getString('acess_token');
+
+  Map<String, String> header = {
+    'authorization': "${acess_token}",
+    'Accept': "application/json"
+  };
+
+  var url =
+      Uri.parse("https://match-artist.herokuapp.com/api/agenda/${model.id}");
+
+  print(url);
+
+  if (model.is_artista == "NAO") {
+    var response =
+        await http.put(url, headers: header, body: {"is_artista": "SIM"});
+  }
+
+  if (model.is_artista == "SIM") {
+    var response =
+        await http.put(url, headers: header, body: {"is_artista": "NAO"});
+  }
+
+  // print(response.body);
+}

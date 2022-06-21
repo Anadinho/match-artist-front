@@ -9,6 +9,8 @@ class AgendaModel {
   String is_artista;
   String is_estabelecimento;
   String artista;
+  String nome_evento;
+  String estabelecimento;
   AgendaModel({
     required this.id,
     required this.solicitante,
@@ -16,6 +18,8 @@ class AgendaModel {
     required this.is_artista,
     required this.is_estabelecimento,
     required this.artista,
+    required this.nome_evento,
+    required this.estabelecimento,
   });
 
   Map<String, dynamic> toMap() {
@@ -27,6 +31,8 @@ class AgendaModel {
     result.addAll({'is_artista': is_artista});
     result.addAll({'is_estabelecimento': is_estabelecimento});
     result.addAll({'artista': artista});
+    result.addAll({'nome_evento': nome_evento});
+    result.addAll({'estabelecimento': estabelecimento});
 
     return result;
   }
@@ -39,6 +45,8 @@ class AgendaModel {
       is_artista: map['is_artista'] ?? '',
       is_estabelecimento: map['is_estabelecimento'] ?? '',
       artista: map['artista'] ?? '',
+      nome_evento: map['nome_evento'] ?? '',
+      estabelecimento: map['estabelecimento'] ?? '',
     );
   }
 
@@ -49,30 +57,7 @@ class AgendaModel {
 
   @override
   String toString() {
-    return 'AgendaModel(id: $id, solicitante: $solicitante, evento: $evento, is_artista: $is_artista, is_estabelecimento: $is_estabelecimento, artista: $artista)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(this, other)) return true;
-
-    return other is AgendaModel &&
-        other.id == id &&
-        other.solicitante == solicitante &&
-        other.evento == evento &&
-        other.is_artista == is_artista &&
-        other.is_estabelecimento == is_estabelecimento &&
-        other.artista == artista;
-  }
-
-  @override
-  int get hashCode {
-    return id.hashCode ^
-        solicitante.hashCode ^
-        evento.hashCode ^
-        is_artista.hashCode ^
-        is_estabelecimento.hashCode ^
-        artista.hashCode;
+    return 'AgendaModel(id: $id, solicitante: $solicitante, evento: $evento, is_artista: $is_artista, is_estabelecimento: $is_estabelecimento, artista: $artista, nome_evento: $nome_evento, estabelecimento: $estabelecimento)';
   }
 
   AgendaModel copyWith({
@@ -82,6 +67,8 @@ class AgendaModel {
     String? is_artista,
     String? is_estabelecimento,
     String? artista,
+    String? nome_evento,
+    String? estabelecimento,
   }) {
     return AgendaModel(
       id: id ?? this.id,
@@ -90,6 +77,8 @@ class AgendaModel {
       is_artista: is_artista ?? this.is_artista,
       is_estabelecimento: is_estabelecimento ?? this.is_estabelecimento,
       artista: artista ?? this.artista,
+      nome_evento: nome_evento ?? this.nome_evento,
+      estabelecimento: estabelecimento ?? this.estabelecimento,
     );
   }
 }

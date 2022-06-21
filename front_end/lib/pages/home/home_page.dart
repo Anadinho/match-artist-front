@@ -31,14 +31,14 @@ class HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text('Home'),
+          title: Text('Carregando ...'),
         ),
         body: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Text(
-              "LEMBRANDO NO MOMENTO APENAS PARA TESTE, CLIQUE EM SAIR PARA SIMULAR QUE O USUARIO SAIU DO APLICATIVO ISSO IRA LIMPAR O CACHE E O ACCESSTOKEN, TENDO QUE LOGAR NOVAMENTE",
+              "Erro!!! caso nao volte para o login, clique em sair!",
               textAlign: TextAlign.center,
             ),
             TextButton(
@@ -46,18 +46,19 @@ class HomePageState extends State<HomePage> {
                 bool is_sair = await sair();
                 if (is_sair) {
                   Navigator.of(context).pushReplacementNamed('/');
+                  Get.toNamed('/login');
                 }
               },
               child: Text('Sair'),
             ),
-            TextButton(
-              onPressed: () => Get.toNamed('/indexArtista'),
-              child: Text('Index artista'),
-            ),
-            TextButton(
-              onPressed: () => Get.toNamed('/login'),
-              child: Text('Realizar Login'),
-            ),
+            // TextButton(
+            //   onPressed: () => Get.toNamed('/indexArtista'),
+            //   child: Text('Index artista'),
+            // ),
+            // TextButton(
+            //   onPressed: () => Get.toNamed('/login'),
+            //   child: Text('Realizar Login'),
+            // ),
           ],
         ));
   }
