@@ -9,8 +9,6 @@ import 'package:front_end/models/artista_model.dart';
 import 'package:front_end/models/evento_model.dart';
 import 'package:front_end/repositories/agenda_repository.dart';
 import 'package:front_end/repositories/evento_repository.dart';
-import 'package:front_end/util/calendar.dart';
-import 'package:table_calendar/table_calendar.dart';
 
 class SubArtistaIndex extends StatefulWidget {
   const SubArtistaIndex({Key? key}) : super(key: key);
