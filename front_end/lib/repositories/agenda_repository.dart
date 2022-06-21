@@ -32,7 +32,8 @@ class AgendaRepository implements IAgendaRepository {
   }
 
   @override
-  Future storeAgendaEstabelecimento(int artistaId, String descricao) async {
+  Future storeAgendaEstabelecimento(
+      int artistaId, String descricao, int? idEvento) async {
     SharedPreferences sharedPreference = await SharedPreferences.getInstance();
     final acess_token = sharedPreference.getString('acess_token');
     final id_estabelecimento = sharedPreference.getString('id_estabelecimento');
@@ -50,7 +51,7 @@ class AgendaRepository implements IAgendaRepository {
       "descricao": "${descricao}",
       "artista_id": "${artistaId}",
       "estabelecimento_id": "${id_estabelecimento}",
-      "evento_id": "1"
+      "evento_id": "${idEvento}"
     };
 
     final response = await http.post(

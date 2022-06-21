@@ -1,3 +1,6 @@
+import 'dart:convert';
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'package:front_end/components/custom_colors.dart';
 import 'package:front_end/controllers/agenda_controller.dart';
@@ -6,6 +9,8 @@ import 'package:front_end/models/artista_model.dart';
 import 'package:front_end/models/evento_model.dart';
 import 'package:front_end/repositories/agenda_repository.dart';
 import 'package:front_end/repositories/evento_repository.dart';
+import 'package:front_end/util/calendar.dart';
+import 'package:table_calendar/table_calendar.dart';
 
 class SubArtistaIndex extends StatefulWidget {
   const SubArtistaIndex({Key? key}) : super(key: key);
@@ -15,7 +20,25 @@ class SubArtistaIndex extends StatefulWidget {
 }
 
 class _SubArtistaIndexState extends State<SubArtistaIndex> {
+  DateTime _date = DateTime.now();
+  TextEditingController dateCtl = TextEditingController();
+
+  Future<Null> _selectcDate(BuildContext context) async {
+    final DateTime picked = await showDatePicker(
+      context: context,
+      initialDate: _date,
+      firstDate: DateTime(1990),
+      lastDate: DateTime(2030),
+    );
+    if (picked != null && picked != _date) {
+      setState(() {
+        dateCtl.text = picked.toIso8601String();
+      });
+    }
+  }
+
   final _descricaoController = TextEditingController();
+  int? idEvento;
   String descricao = '';
 
   final AgendaController _controllerAgenda =
@@ -32,6 +55,8 @@ class _SubArtistaIndexState extends State<SubArtistaIndex> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    this.idEvento;
+    _calendar = Calendar();
   }
 
   @override
@@ -98,7 +123,7 @@ class _SubArtistaIndexState extends State<SubArtistaIndex> {
                             .toList(),
                         onChanged: (value) => {
                               setState(() {
-                                eventoModel = value;
+                                eventoModel = value as EventoModel;
                               })
                             });
                   }
@@ -135,8 +160,7 @@ class _SubArtistaIndexState extends State<SubArtistaIndex> {
             TextButton(
               onPressed: () async {
                 final res = await _controllerAgenda.store(
-                    artista.id, _descricaoController.text);
-
+                    artista.id, _descricaoController.text, eventoModel?.id);
                 if (res.first == 'ok') {
                   showDialog<String>(
                     context: context,
