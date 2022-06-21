@@ -4,7 +4,7 @@ import '../../../components/custom_colors.dart';
 
 AppBar getCompanyAppBar() {
   return AppBar(
-    title: Text("Eventos Confirmados"),
+    title: Text('Perfil'),
     centerTitle: true,
     backgroundColor: CustomColors().getBlueColorSecond(),
     actions: [

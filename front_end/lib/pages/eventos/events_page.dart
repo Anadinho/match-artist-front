@@ -83,32 +83,26 @@ class _EventsPageState extends State<EventsPage> {
                             CircleAvatar(
                               radius: 30,
                               backgroundImage:
-                                  AssetImage('lib/assets/contact.jpeg'),
+                                  AssetImage('lib/assets/event.jpeg'),
                             ),
                             SizedBox(width: 10),
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text(
-                                    list[idx].id.toString() +
-                                        " - " +
-                                        list[idx].nome,
+                                Text("Nome:  " + list[idx].nome,
                                     style: TextStyle(
                                         fontWeight: FontWeight.w600,
                                         fontSize: 16)),
                                 SizedBox(height: 10),
-                                Text(list[idx].nome,
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.w600,
-                                        fontSize: 12)),
                                 Text(
                                   list[idx].descricao,
                                   style: TextStyle(
                                       fontWeight: FontWeight.w600,
                                       fontSize: 14),
                                 ),
+                                SizedBox(height: 10),
                                 Text(
-                                  list[idx].data,
+                                  "Dia:  \n" + list[idx].data,
                                   style: TextStyle(
                                       fontWeight: FontWeight.w600,
                                       fontSize: 14),
@@ -126,9 +120,9 @@ class _EventsPageState extends State<EventsPage> {
                   actionPane: const SlidableDrawerActionPane(),
                   secondaryActions: [
                     IconSlideAction(
-                      caption: 'Perfil',
+                      caption: 'Ver Evento',
                       color: CustomColors().getBlueColorSecond(),
-                      icon: Icons.account_circle,
+                      icon: Icons.event,
                       // onTap: () => Navigator.of(context)
                       //     .pushNamed('/subIndexArtista', arguments: list[idx]),
                     )
