@@ -1,10 +1,7 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:front_end/controllers/evento_controller.dart';
-import 'package:front_end/models/evento_model.dart';
 import 'package:front_end/repositories/evento_repository.dart';
+import 'package:intl/intl.dart';
 
 import '../../components/custom_colors.dart';
 import '../../components/text_form_fild_patters.dart';
@@ -23,7 +20,7 @@ class _EventsModalAddState extends State<EventsModalAdd> {
 
   final nameEvent = TextEditingController();
   final descricaoEvent = TextEditingController();
-  late final dateEvent = TextEditingController();
+  final dateEvent = TextEditingController();
 
   final novoEvento = [];
   @override
@@ -80,9 +77,10 @@ class _EventsModalAddState extends State<EventsModalAdd> {
                       enabled: false,
                       style: TextStyle(color: CustomColors().getWordColor()),
                       decoration: InputDecoration(
-                        labelText:
-                            _dateTime == null ? 'Data' : _dateTime.toString(),
-                        // labelText: _dateTime == null ? 'Data' : _dateTime.toString(),
+                        // labelText: convertData(_dateTime!),
+                        labelText: _dateTime == null
+                            ? 'Data'
+                            : convertData(_dateTime!),
                         labelStyle:
                             TextStyle(color: CustomColors().getWordColor()),
                         prefixIcon: Icon(
@@ -125,7 +123,6 @@ class _EventsModalAddState extends State<EventsModalAdd> {
                           .then((date) {
                         setState(() {
                           _dateTime = date!;
-                          // dateEvent = _dateTime.toString();
                         });
                       });
                     },
@@ -174,5 +171,9 @@ class _EventsModalAddState extends State<EventsModalAdd> {
         ],
       )),
     );
+  }
+
+  String convertData(DateTime date) {
+    return DateFormat('dd/MM/yyyy - HH:mm').format(date);
   }
 }
