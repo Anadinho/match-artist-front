@@ -16,6 +16,7 @@ class RegisterThreePage extends StatefulWidget {
 }
 
 class _RegisterThreePageState extends State<RegisterThreePage> {
+  final _formKey = GlobalKey<FormState>();
   final logradouroEC = TextEditingController();
   final complementoEC = TextEditingController();
   final numeroEC = TextEditingController();
@@ -58,97 +59,105 @@ class _RegisterThreePageState extends State<RegisterThreePage> {
         ),
         child: SingleChildScrollView(
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 50),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Image(
-                image: AssetImage('lib/assets/logo.png'),
-                width: 120,
-                color: CustomColors().getBlueColorPrimary(),
-              ),
-              SizedBox(height: 16),
-              Text('Endereço',
-                  style: TextStyle(
-                    fontSize: 26.0,
-                    color: CustomColors().getWordColor(),
-                  )),
-              SizedBox(height: 16),
-              TextFildFormPatters(
-                controller: logradouroEC,
-                label: 'Logradouro',
-                iconLabel: Icons.gps_fixed,
-              ),
-              SizedBox(height: 16),
-              TextFildFormPatters(
-                controller: complementoEC,
-                label: 'Complemento',
-                iconLabel: Icons.location_city,
-              ),
-              SizedBox(height: 16),
-              TextFildFormPatters(
-                controller: numeroEC,
-                label: 'Numero',
-                iconLabel: Icons.location_city,
-              ),
-              SizedBox(height: 16),
-              TextFildFormPatters(
-                controller: cidadeEC,
-                label: 'Cidade',
-                iconLabel: Icons.location_city,
-              ),
-              SizedBox(height: 16),
-              TextFildFormPatters(
-                controller: estadoEC,
-                label: 'Esdado',
-                iconLabel: Icons.location_city,
-              ),
-              SizedBox(height: 16),
-              Row(
-                children: [
-                  Expanded(
-                    child: ElevatedButton(
-                      onPressed: () {
-                        var model = registerModel.copyWith(
-                            logradouro: logradouroEC.text,
-                            complemento: complementoEC.text,
-                            numero: numeroEC.text,
-                            cidade: cidadeEC.text,
-                            estado: estadoEC.text);
-                        register(model);
-                        Navigator.of(context, rootNavigator: true)
-                            .pushReplacementNamed('/login');
-                      },
-                      child: Text('CADASTRAR'),
-                      style: ElevatedButton.styleFrom(
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(50)),
-                          primary: CustomColors().getActivePrimaryButton(),
-                          padding: EdgeInsets.all(14)),
+          child: Form(
+            key: _formKey,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Image(
+                  image: AssetImage('lib/assets/logo.png'),
+                  width: 120,
+                  color: CustomColors().getBlueColorPrimary(),
+                ),
+                SizedBox(height: 16),
+                Text('Endereço',
+                    style: TextStyle(
+                      fontSize: 26.0,
+                      color: CustomColors().getWordColor(),
+                    )),
+                SizedBox(height: 16),
+                TextFildFormPatters(
+                  controller: logradouroEC,
+                  label: 'Logradouro',
+                  iconLabel: Icons.gps_fixed,
+                ),
+                SizedBox(height: 16),
+                TextFildFormPatters(
+                  controller: complementoEC,
+                  label: 'Complemento',
+                  iconLabel: Icons.location_city,
+                ),
+                SizedBox(height: 16),
+                TextFildFormPatters(
+                  controller: numeroEC,
+                  label: 'Numero',
+                  iconLabel: Icons.location_city,
+                ),
+                SizedBox(height: 16),
+                TextFildFormPatters(
+                  controller: cidadeEC,
+                  label: 'Cidade',
+                  iconLabel: Icons.location_city,
+                ),
+                SizedBox(height: 16),
+                TextFildFormPatters(
+                  controller: estadoEC,
+                  label: 'Esdado',
+                  iconLabel: Icons.location_city,
+                ),
+                SizedBox(height: 16),
+                Row(
+                  children: [
+                    Expanded(
+                      child: ElevatedButton(
+                        onPressed: () {
+                          var formValid =
+                              _formKey.currentState?.validate() ?? false;
+                          if (formValid) {
+                            var model = registerModel.copyWith(
+                                logradouro: logradouroEC.text,
+                                complemento: complementoEC.text,
+                                numero: numeroEC.text,
+                                cidade: cidadeEC.text,
+                                estado: estadoEC.text);
+                            register(model);
+                            Navigator.of(context, rootNavigator: true)
+                                .pushReplacementNamed('/login');
+                          }
+                        },
+                        child: Text('CADASTRAR'),
+                        style: ElevatedButton.styleFrom(
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(50)),
+                            primary: CustomColors().getActivePrimaryButton(),
+                            padding: EdgeInsets.all(14)),
+                      ),
                     ),
-                  ),
-                ],
-              ),
-              SizedBox(height: 16),
-              Row(
-                children: [
-                  Expanded(
-                    child: ElevatedButton(
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                      child: Text('VOLTAR',
-                          style: TextStyle(
-                              color: CustomColors().getActivePrimaryButton())),
-                      style: ElevatedButton.styleFrom(
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(50)),
-                          primary: CustomColors().getActiveSecondButton(),
-                          padding: EdgeInsets.all(14)),
+                  ],
+                ),
+                SizedBox(height: 16),
+                Row(
+                  children: [
+                    Expanded(
+                      child: ElevatedButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        child: Text('VOLTAR',
+                            style: TextStyle(
+                                color:
+                                    CustomColors().getActivePrimaryButton())),
+                        style: ElevatedButton.styleFrom(
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(50)),
+                            primary: CustomColors().getActiveSecondButton(),
+                            padding: EdgeInsets.all(14)),
+                      ),
                     ),
-                  ),
-                ],
-              ),
-            ],
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
       ),
