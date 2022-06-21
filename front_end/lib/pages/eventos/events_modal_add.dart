@@ -80,7 +80,9 @@ class _EventsModalAddState extends State<EventsModalAdd> {
                       enabled: false,
                       style: TextStyle(color: CustomColors().getWordColor()),
                       decoration: InputDecoration(
-                        labelText: 'Data',
+                        labelText:
+                            _dateTime == null ? 'Data' : _dateTime.toString(),
+                        // labelText: _dateTime == null ? 'Data' : _dateTime.toString(),
                         labelStyle:
                             TextStyle(color: CustomColors().getWordColor()),
                         prefixIcon: Icon(
